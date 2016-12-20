@@ -1,4 +1,4 @@
-defmodule Tictactoe do
+defmodule TicTacToe do
   use Mix.Task
 
   def start() do

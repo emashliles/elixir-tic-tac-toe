@@ -1,8 +1,8 @@
-defmodule Mix.Tasks.Tictactoe do
+defmodule Mix.Tasks.TicTacToe do
   use Mix.Task
 
   @shortdoc "Runs TicTacToe"
   def run(_) do
-    Tictactoe.start()
+    TicTacToe.start()
   end
 end
