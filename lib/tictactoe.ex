@@ -6,6 +6,6 @@ defmodule TicTacToe do
   end
 
   def play() do
-    IO.puts '123\n456\n789'
+    '123\n456\n789'
   end
 end

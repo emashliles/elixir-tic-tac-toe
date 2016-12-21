@@ -3,6 +3,6 @@ defmodule TicTacToeTest do
   doctest TicTacToe
 
   test "it can print the board" do
-    assert TicTacToe.play() == "123\n456\n789"
+    assert TicTacToe.play() == '123\n456\n789'
   end
 end
