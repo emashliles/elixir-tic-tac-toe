@@ -5,24 +5,20 @@ defmodule TicTacToe do
     IO.puts(play())
   end
 
+  def start(selected_tile) do
+    IO.puts(play(selected_tile))
+  end
+
   def play() do
     "123\n456\n789"
   end
-#
-#  def play(5) do
-#    '123\n4X6\n789'
-#  end
-#
-#  def play(9) do
-#    '123\n456\n78X'
-#  end
-#
-#  def play(1) do
-#    'X23\n456\n789'
-#  end
+
+  def play(x) when is_integer(x) do
+    play(Integer.to_string(x))
+  end
 
   def play(x) do
-    String.replace("123\n456\n789",Integer.to_string(x),"X")
+    String.replace("123\n456\n789",x,"X")
   end
 
 end
