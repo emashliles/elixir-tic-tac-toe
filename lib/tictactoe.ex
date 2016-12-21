@@ -1,14 +1,6 @@
 defmodule TicTacToe do
   use Mix.Task
 
-  def start() do
-    make_move()
-  end
-
-  def start(selected_tile) do
-    make_move(selected_tile)
-  end
-
   def make_move() do
     "123\n456\n789"
   end

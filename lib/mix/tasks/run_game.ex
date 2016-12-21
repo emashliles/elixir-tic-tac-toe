@@ -3,12 +3,12 @@ defmodule Mix.Tasks.TicTacToe do
 
   @shortdoc "Runs TicTacToe"
   def run(_) do
-    IO.puts TicTacToe.start()
+    IO.puts TicTacToe.make_move()
     run()
   end
 
   def run() do
-   IO.puts TicTacToe.start(String.trim(IO.gets("Please enter a tile selection:")))
+   IO.puts TicTacToe.make_move(String.trim(IO.gets("Please enter a tile selection:")))
    run()
   end
 end
