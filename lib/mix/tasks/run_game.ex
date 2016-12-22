@@ -3,7 +3,7 @@ defmodule Mix.Tasks.TicTacToe do
 
   @shortdoc "Runs TicTacToe"
   def run(_) do
-    IO.puts TicTacToe.make_move()
+    TicTacToe.make_move()
     run()
   end
 
