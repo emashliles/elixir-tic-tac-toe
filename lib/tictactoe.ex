@@ -1,16 +1,16 @@
 defmodule TicTacToe do
-  use Mix.Task
 
   def make_move() do
     "123\n456\n789"
   end
 
-  def make_move(x) when is_integer(x) do
-    make_move(Integer.to_string(x))
+  def make_move(selected_tile) when is_integer(selected_tile) do
+    selected_tile
+    |> Integer.to_string()
+    |> make_move()
   end
 
-  def make_move(x) do
-    String.replace("123\n456\n789",x,"X")
+  def make_move(selected_tile) do
+    String.replace("123\n456\n789",selected_tile,"X")
   end
-
 end

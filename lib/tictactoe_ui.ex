@@ -1,11 +1,15 @@
 defmodule TicTacToe.UI do
 
   def start_game() do
-    IO.puts TicTacToe.make_move()
+    TicTacToe.make_move()
+    |> IO.puts 
   end
   
   def get_move() do
-    IO.puts TicTacToe.make_move(String.trim(IO.gets("Please enter a tile selection:"))) 
+    "Please enter a tile selection:"
+    |> IO.gets()
+    |> String.trim()
+    |> TicTacToe.make_move() 
+    |> IO.puts
   end
-
 end
