@@ -11,12 +11,12 @@ defmodule TicTacToe.UI do
      IO.gets("Please enter a tile selection:")
      |> String.trim()
      |> get_move(board)
-     |> IO.puts
   end
 
   def get_move(selected_tile, board) do 
-    TicTacToe.make_move(selected_tile, board)
-    |> insert_new_lines_into_board()
+    modified_board = TicTacToe.make_move(selected_tile, board)
+    IO.puts insert_new_lines_into_board(modified_board)
+    modified_board
   end
 
   def insert_new_lines_into_board(board) do
@@ -24,4 +24,5 @@ defmodule TicTacToe.UI do
     |> List.insert_at(3, "\n")
     |> List.insert_at(7, "\n") 
   end
+
 end
