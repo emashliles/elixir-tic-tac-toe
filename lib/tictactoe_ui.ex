@@ -1,9 +1,10 @@
 defmodule TicTacToe.UI do
 
   def start_game() do
-   TicTacToe.make_move()
-   |> insert_new_lines_into_board()
-   |> IO.puts
+  board =  TicTacToe.make_move()
+  insert_new_lines_into_board(board)
+  |> IO.puts 
+  board
   end
   
   def get_move(board) do
