@@ -8,7 +8,9 @@ defmodule TicTacToe.UI do
   end
   
   def get_move(board) do
-     get_move(String.trim(IO.gets( "Please enter a tile selection:")),board)
+     IO.gets("Please enter a tile selection:")
+     |> String.trim()
+     |> get_move(board)
      |> IO.puts
   end
 
@@ -18,7 +20,7 @@ defmodule TicTacToe.UI do
   end
 
   def insert_new_lines_into_board(board) do
-    board
+    elem(board, 1)
     |> List.insert_at(3, "\n")
     |> List.insert_at(7, "\n") 
   end

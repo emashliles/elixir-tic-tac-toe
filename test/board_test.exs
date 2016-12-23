@@ -4,14 +4,14 @@ defmodule BoardTests do
   test "can create a board" do
     board = Board.create(3)
 
-    assert board == ["1","2","3","4","5","6","7","8","9"]
+    assert board =={:x, ["1", "2", "3", "4", "5", "6", "7", "8", "9"]}  
   end
 
   test "can make a move" do
     board = Board.create(3)
     
-    changed_board = Board.place_marker("6",board, "X")
+    changed_board = Board.place_marker("6",board)
 
-    assert changed_board == ["1","2","3","4","5","X","7","8","9"]
+    assert changed_board == {:x, ["1","2","3","4","5","X","7","8","9"]}
   end
 end

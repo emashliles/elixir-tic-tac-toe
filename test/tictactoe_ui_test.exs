@@ -7,6 +7,7 @@ defmodule TicTacToe.UI.Test do
   end
   
   test "can print the board after user input" do
-    assert capture_io([input: "1"],fn ->  TicTacToe.UI.get_move(["1","2","3","4","5","6","7","8","9"])end) == "Please enter a tile selection:X23\n456\n789\n"  
+    assert capture_io([input: "1"],fn ->  TicTacToe.UI.get_move({:x,["1","2","3","4","5","6","7","8","9"]})end) == "Please enter a tile selection:X23\n456\n789\n"  
   end
+
 end
