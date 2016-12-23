@@ -1,0 +1,17 @@
+defmodule BoardTests do
+  use ExUnit.Case
+
+  test "can create a board" do
+    board = Board.create(3)
+
+    assert board == ["1","2","3","4","5","6","7","8","9"]
+  end
+
+  test "can make a move" do
+    board = Board.create(3)
+    
+    changed_board = Board.place_marker("6",board, "X")
+
+    assert changed_board == ["1","2","3","4","5","X","7","8","9"]
+  end
+end

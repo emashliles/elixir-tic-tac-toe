@@ -1,16 +1,18 @@
 defmodule TicTacToe do
+  
+import Board
 
   def make_move() do
-    "123\n456\n789"
+    Board.create(3)
   end
 
-  def make_move(selected_tile) when is_integer(selected_tile) do
+  def make_move(selected_tile, board) when is_integer(selected_tile) do
     selected_tile
     |> Integer.to_string()
-    |> make_move()
+    |> make_move(board)
   end
 
-  def make_move(selected_tile) do
-    String.replace("123\n456\n789",selected_tile,"X")
+  def make_move(selected_tile, board) do
+    Board.place_marker(selected_tile,board, "X")
   end
 end
