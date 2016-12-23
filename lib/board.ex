@@ -5,9 +5,12 @@ defmodule Board do
   end
 
   def place_marker(selected_tile, board, marker) do
-   tile = String.to_integer(selected_tile)
-   index_of_tile = (tile - 1 )
-   new_board =  List.replace_at(board, index_of_tile , "X")
-   new_board
+   String.to_integer(selected_tile)
+   |> zero_index_selection() 
+   |> (&List.replace_at(board,&1, "X")).() 
+  end
+
+  def zero_index_selection(selected_tile) do
+    selected_tile - 1
   end
 end
