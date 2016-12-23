@@ -5,6 +5,7 @@ defmodule Mix.Tasks.TicTacToe do
   def run(_) do
     TicTacToe.UI.start_game()
     |> TicTacToe.UI.get_move()
+    |> TicTacToe.UI.get_move()
   end
 end
 
