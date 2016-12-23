@@ -7,7 +7,7 @@ defmodule Board do
   def place_marker(selected_tile, board, marker) do
    String.to_integer(selected_tile)
    |> zero_index_selection() 
-   |> (&List.replace_at(board,&1, "X")).() 
+   |> (&List.replace_at(board,&1, marker)).() 
   end
 
   def zero_index_selection(selected_tile) do
