@@ -18,11 +18,11 @@ import Board
   end
 
   def change_player(board, :o) do 
-    {:x, elem(board, 1)}
+    {:x, elem(board, 1), :continue}
   end
 
   def change_player(board, :x) do 
-    {:o ,elem(board, 1)}
+    {:o ,elem(board, 1), :continue}
   end
 
 end

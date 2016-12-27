@@ -1,7 +1,7 @@
 defmodule Board do
 
   def create(board_size) do
-    {:x, ["1","2","3","4","5","6","7","8","9"]}
+    {:x, ["1","2","3","4","5","6","7","8","9"], :continue}
   end
 
   def place_marker(selected_tile, board) do
@@ -16,10 +16,10 @@ defmodule Board do
 
   def replace_marker_on_board(selected_tile, board) do
     marker = elem(board, 0)
-    
+    game_status = elem(board, 2) 
     elem(board, 1)
     |> replace_marker_in_board_list(selected_tile, marker)
-    |> create_next_board(marker)
+    |> create_next_board(marker, game_status)
   end
 
   def replace_marker_in_board_list(board,selected_tile,marker) do
@@ -27,8 +27,8 @@ defmodule Board do
    List.replace_at(board,selected_tile, marker_string)
   end
 
-  def create_next_board(board, marker) do
-    {marker, board}
+  def create_next_board(board, marker, game_status) do
+    {marker, board, game_status}
   end
 
   def get_marker_symbol(marker) do
