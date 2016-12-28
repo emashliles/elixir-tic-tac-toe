@@ -10,19 +10,24 @@ import Board
     selected_tile
     |> Integer.to_string()
     |> make_move(board)
+    |> IO.inspect 
   end
 
   def make_move(selected_tile, board) do
-    Board.place_marker(selected_tile,board)
-    |> change_player(elem(board,0))
+    modified_board = Board.place_marker(selected_tile,board)
+    change_player(modified_board, elem(modified_board,0), elem(board,2 ))
   end
 
-  def change_player(board, :o) do 
+  def change_player(board, :o, :continue) do 
     {:x, elem(board, 1), :continue}
   end
 
-  def change_player(board, :x) do 
+  def change_player(board, :x, :continue) do 
     {:o ,elem(board, 1), :continue}
+  end
+
+  def change_player(board, player, :tile_already_selected) do
+    {player, elem(board, 1), :tile_already_selected}
   end
 
 end

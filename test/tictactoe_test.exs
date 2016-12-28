@@ -23,6 +23,6 @@ defmodule TicTacToeTest do
   end
 
   test "tiles cannot be selected twice" do
-    assert TicTacToe.make_move(1,{:o,["1","2","3","4","X","6","7","8","9"],:continue}) == {:x, ["O","2","3","4","X","6","7","8","9"],:tile_already_selected}
+    assert TicTacToe.make_move(1,{:o,["O","2","3","4","X","6","7","8","9"],:continue}) == {:o, ["O","2","3","4","X","6","7","8","9"],:tile_already_selected}
   end
 end

@@ -18,8 +18,17 @@ defmodule Board do
     marker = elem(board, 0)
     game_status = elem(board, 2) 
     elem(board, 1)
-    |> replace_marker_in_board_list(selected_tile, marker)
-    |> create_next_board(marker, game_status)
+    |> check_tile_not_taken(selected_tile, marker)
+  end
+
+  def check_tile_not_taken(board, selected_tile, marker) do
+    selected_tile_string = Integer.to_string(selected_tile + 1)
+    if Enum.at(board,selected_tile) != selected_tile_string do
+      create_next_board(board, marker, :tile_already_selected)
+    else
+      replace_marker_in_board_list(board, selected_tile, marker)
+      |>create_next_board(marker, :continue)
+    end
   end
 
   def replace_marker_in_board_list(board,selected_tile,marker) do
@@ -27,13 +36,17 @@ defmodule Board do
    List.replace_at(board,selected_tile, marker_string)
   end
 
-  def create_next_board(board, marker, game_status) do
-    {marker, board, game_status}
+  def create_next_board(board, marker, :continue) do
+    {marker, board,:continue}
+  end
+
+  def create_next_board(board, marker, :tile_already_selected) do
+    IO.puts "this"
+    {marker, board,:tile_already_selected}
   end
 
   def get_marker_symbol(marker) do
     available_markers = [{:x, "X"}, {:o, "O"}]
     available_markers[marker]
   end
-
 end
