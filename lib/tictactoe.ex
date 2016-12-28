@@ -14,7 +14,7 @@ import Board
 
   def make_move(selected_tile, board) do
     modified_board = Board.place_marker(selected_tile,board)
-    change_player(modified_board, elem(modified_board,0), elem(modified_board,2 ))
+    change_player(modified_board, elem(modified_board,0), elem(modified_board,2))
   end
 
   def change_player(board, :o, :continue) do 

@@ -16,5 +16,10 @@ defmodule Mix.Tasks.TicTacToe do
  def continue_game(:continue, modified_board) do
    game_loop(modified_board)
  end
+
+ def continue_game(:tile_already_selected, modified_board) do
+   IO.puts "Tile already selected. Please select a different tile."
+   game_loop(modified_board)
+ end
 end
 
