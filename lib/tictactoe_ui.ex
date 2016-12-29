@@ -15,11 +15,15 @@ defmodule TicTacToe.UI do
   end
 
   def get_move(selected_tile, game_status) do 
-    modified_board = TicTacToe.make_move(selected_tile, game_status)
-    elem(modified_board, 1)
+    TicTacToe.make_move(selected_tile, game_status)
+    |> print_board()
+  end
+
+  def print_board(game_status) do
+    elem(game_status, 1)
     |> insert_new_lines_into_board()
     |> IO.puts
-    modified_board
+    game_status
   end
 
   def insert_new_lines_into_board(board) do
