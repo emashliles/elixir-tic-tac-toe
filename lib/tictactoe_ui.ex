@@ -11,12 +11,22 @@ defmodule TicTacToe.UI do
   def get_move(game_status) do
      IO.gets("Please enter a tile selection:")
      |> String.trim()
-     |> get_move(game_status)
+     |> make_and_print_move(game_status)
   end
 
-  def get_move(selected_tile, game_status) do 
+  def make_and_print_move(selected_tile, game_status) do 
     TicTacToe.make_move(selected_tile, game_status)
-    |> print_board()
+    |> decide_turn_type()
+  end
+
+   def decide_turn_type(game_status) do
+     elem(game_status, 2)
+     |> print_turn(game_status)
+   end
+
+  def print_turn(:continue, game_status) do
+    print_board(game_status)
+    game_status
   end
 
   def print_board(game_status) do
