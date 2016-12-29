@@ -4,7 +4,7 @@ defmodule BoardTests do
   test "can create a board" do
     board = Board.create(3)
 
-    assert board =={:x, ["1", "2", "3", "4", "5", "6", "7", "8", "9"], :continue}  
+    assert board =={:x, ["1", "2", "3", "4", "5", "6", "7", "8", "9"], :first_turn}  
   end
 
   test "can make a move" do

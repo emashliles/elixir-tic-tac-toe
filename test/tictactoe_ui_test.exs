@@ -15,6 +15,6 @@ defmodule TicTacToe.UI.Test do
   end
 
   test "Prints correct message after duplicate tile selected" do
-    assert capture_io([input: "5"],fn ->  TicTacToe.UI.get_move({:o,["X","2","3","4","X","6","7","8","9"], :continue})end) == "Tile already selected. Please select a different tile.\nX23\n4X6\n789"  
+    assert capture_io([input: "5"],fn ->  TicTacToe.UI.get_move({:o,["X","2","3","4","X","6","7","8","9"], :get_player_move})end) == "Please enter a tile selection:Tile already selected. Please select a different tile.\nX23\n4X6\n789\n"  
   end
 end

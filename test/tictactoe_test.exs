@@ -3,7 +3,7 @@ defmodule TicTacToeTest do
   doctest TicTacToe
 
   test "it can retrun and empty board" do
-    assert TicTacToe.make_move() == {:x, ["1","2","3","4","5","6","7","8","9"], :continue}
+    assert TicTacToe.make_move() == {:x, ["1","2","3","4","5","6","7","8","9"], :first_turn}
   end
 
   test "player can select tile 5" do
