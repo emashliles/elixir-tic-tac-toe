@@ -19,3 +19,4 @@ erl_crash.dump
 *.swp
 *.swa
 .DS_Store
+**/.DS_store
