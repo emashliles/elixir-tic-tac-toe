@@ -29,6 +29,11 @@ defmodule TicTacToe.UI do
     game_status
   end
 
+  def print_turn(:tile_already_selected, game_status) do
+    IO.puts "Tile already selected. Please select a different tile."
+    print_board(game_status)
+  end
+
   def print_board(game_status) do
     elem(game_status, 1)
     |> insert_new_lines_into_board()
