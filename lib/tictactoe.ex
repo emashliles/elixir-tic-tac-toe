@@ -6,12 +6,6 @@ import Board
     Board.create(3)
   end
 
-  def make_move(selected_tile, board) when is_integer(selected_tile) do
-    selected_tile
-    |> Integer.to_string()
-    |> make_move(board)
-  end
-
   def make_move(selected_tile, board) do
     modified_board = Board.place_marker(selected_tile,board)
     change_player(modified_board, elem(modified_board,0), elem(modified_board,2))
