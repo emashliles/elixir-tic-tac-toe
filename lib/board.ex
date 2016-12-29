@@ -41,7 +41,6 @@ defmodule Board do
   end
 
   def create_next_board(board, marker, :tile_already_selected) do
-    IO.puts "this"
     {marker, board,:tile_already_selected}
   end
 
