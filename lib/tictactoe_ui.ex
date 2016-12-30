@@ -47,15 +47,22 @@ defmodule TicTacToe.UI do
 
   def print_board(game_status) do
     elem(game_status, 1)
-    |> insert_new_lines_into_board()
-    |> IO.puts
+    |> format_board()
+    |> IO.write
     game_status
   end
 
-  def insert_new_lines_into_board(board) do
-    board
-    |> List.insert_at(3, "\n")
-    |> List.insert_at(7, "\n") 
+  def format_board(board) do
+    insert_new_lines_into_board([], board)
+  end
+
+  def insert_new_lines_into_board(formatted_rows,[head | tail]) do
+    List.insert_at(formatted_rows, -1,  head ++ ["\n"]) 
+    |> insert_new_lines_into_board(tail)
+  end
+
+  def insert_new_lines_into_board(formatted_rows, []) do
+    formatted_rows
   end
 
 end

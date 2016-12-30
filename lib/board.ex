@@ -1,8 +1,9 @@
 defmodule Board do
 
   @markers ["X","O"]
+
   def create(board_size) do
-    {:x, ["1","2","3","4","5","6","7","8","9"], :first_turn}
+    {:x, [["1","2","3"],["4","5","6"],["7","8","9"]], :first_turn}
   end
 
   def place_marker(selected_tile, game_status) do
@@ -12,7 +13,7 @@ defmodule Board do
   end
 
   def check_tile_not_taken(board, selected_tile, marker) do
-    selection_value = Enum.at(board,zero_index_selection(selected_tile))
+     selection_value = get_value_of_selected_tile(zero_index_selection(selected_tile), board)
      Enum.member?(@markers,selection_value)
      |> create_next_game_status(board, marker, selected_tile)
   end
@@ -20,9 +21,16 @@ defmodule Board do
   def replace_marker_in_board(board,selected_tile,marker) do
    marker_string = get_marker_symbol(marker)
    index_selection = zero_index_selection(selected_tile)
-   List.replace_at(board,index_selection, marker_string)
+   row_size = length(board)
+   List.flatten(board)
+   |> List.replace_at(index_selection, marker_string)
+   |> divide_board_into_rows(row_size)
   end
-  
+
+  def divide_board_into_rows(board, row_size) do
+    Enum.chunk(board, row_size)
+  end
+
   def create_next_game_status(is_duplicate_selection, board, marker, selected_tile) when is_duplicate_selection === false  do
     new_board = replace_marker_in_board(board, selected_tile, marker)
     {marker,new_board,:continue}
@@ -39,5 +47,10 @@ defmodule Board do
 
   def zero_index_selection(selected_tile) do
     selected_tile - 1
+  end
+
+  def get_value_of_selected_tile(selected_tile, board) do
+    List.flatten(board)
+    |> Enum.at(selected_tile)
   end
 end
