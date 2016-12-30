@@ -1,13 +1,12 @@
 defmodule Board do
 
+  @markers ["X","O"]
   def create(board_size) do
     {:x, ["1","2","3","4","5","6","7","8","9"], :first_turn}
   end
 
   def place_marker(selected_tile, game_status) do
-    String.to_integer(selected_tile)
-    |> zero_index_selection() 
-    |> replace_marker_on_board(game_status)
+     replace_marker_on_board(selected_tile, game_status)
   end
 
   def zero_index_selection(selected_tile) do
@@ -21,25 +20,24 @@ defmodule Board do
   end
 
   def check_tile_not_taken(board, selected_tile, marker) do
-    selected_tile_string = Integer.to_string(selected_tile + 1)
-    if Enum.at(board,selected_tile) != selected_tile_string do
-      create_next_game_status(board, marker, :tile_already_selected)
-    else
-      replace_marker_in_board_list(board, selected_tile, marker)
-      |>create_next_game_status(marker, :continue)
-    end
+    selection_value = Enum.at(board,zero_index_selection(String.to_integer(selected_tile)))
+     Enum.member?(@markers,selection_value)
+     |> create_next_game_status(board, marker, selected_tile)
   end
 
-  def replace_marker_in_board_list(board,selected_tile,marker) do
+  def replace_marker_in_board(board,selected_tile,marker) do
    marker_string = get_marker_symbol(marker)
-   List.replace_at(board,selected_tile, marker_string)
+   index_selection = zero_index_selection(String.to_integer(selected_tile))
+   List.replace_at(board,index_selection, marker_string)
+  end
+  
+
+  def create_next_game_status(is_duplicate_selection, board, marker, selected_tile) when is_duplicate_selection === false  do
+    new_board = replace_marker_in_board(board, selected_tile, marker)
+    {marker,new_board,:continue}
   end
 
-  def create_next_game_status(board, marker, :continue) do
-    {marker, board,:continue}
-  end
-
-  def create_next_game_status(board, marker, :tile_already_selected) do
+  def create_next_game_status(is_duplicate_selection, board, marker, _) when is_duplicate_selection === true do
     {marker, board,:tile_already_selected}
   end
 
