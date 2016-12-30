@@ -10,7 +10,7 @@ defmodule BoardTests do
   test "can make a move" do
     board = Board.create(3)
     
-    changed_board = Board.place_marker("6",board)
+    changed_board = Board.place_marker(6,board)
 
     assert changed_board == {:x, ["1","2","3","4","5","X","7","8","9"], :continue}
   end

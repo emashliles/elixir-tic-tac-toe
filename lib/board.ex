@@ -6,32 +6,23 @@ defmodule Board do
   end
 
   def place_marker(selected_tile, game_status) do
-     replace_marker_on_board(selected_tile, game_status)
-  end
-
-  def zero_index_selection(selected_tile) do
-    selected_tile - 1
-  end
-
-  def replace_marker_on_board(selected_tile, game_status) do
     marker = elem(game_status, 0)
     elem(game_status, 1)
     |> check_tile_not_taken(selected_tile, marker)
   end
 
   def check_tile_not_taken(board, selected_tile, marker) do
-    selection_value = Enum.at(board,zero_index_selection(String.to_integer(selected_tile)))
+    selection_value = Enum.at(board,zero_index_selection(selected_tile))
      Enum.member?(@markers,selection_value)
      |> create_next_game_status(board, marker, selected_tile)
   end
 
   def replace_marker_in_board(board,selected_tile,marker) do
    marker_string = get_marker_symbol(marker)
-   index_selection = zero_index_selection(String.to_integer(selected_tile))
+   index_selection = zero_index_selection(selected_tile)
    List.replace_at(board,index_selection, marker_string)
   end
   
-
   def create_next_game_status(is_duplicate_selection, board, marker, selected_tile) when is_duplicate_selection === false  do
     new_board = replace_marker_in_board(board, selected_tile, marker)
     {marker,new_board,:continue}
@@ -44,5 +35,9 @@ defmodule Board do
   def get_marker_symbol(marker) do
     available_markers = [{:x, "X"}, {:o, "O"}]
     available_markers[marker]
+  end
+
+  def zero_index_selection(selected_tile) do
+    selected_tile - 1
   end
 end

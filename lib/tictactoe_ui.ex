@@ -12,6 +12,7 @@ defmodule TicTacToe.UI do
   def get_tile_selection() do
     IO.gets("Please enter a tile selection:")
     |> String.trim()
+    |> String.to_integer()
   end
 
   def make_and_print_move(selected_tile, game_status) do 
