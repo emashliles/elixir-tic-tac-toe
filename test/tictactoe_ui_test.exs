@@ -14,7 +14,11 @@ defmodule TicTacToe.UI.Test do
     assert capture_io([input: "2"],fn ->  TicTacToe.UI.get_move({:o,[["X","2","3"],["4","5","6"],["7","8","9"]], :continue})end) == "Please enter a tile selection:XO3\n456\n789\n"  
   end
 
-  test "Prints correct message after duplicate tile selected" do
+  test "prints correct message after duplicate tile selected" do
     assert capture_io([input: "5"],fn ->  TicTacToe.UI.get_move({:o,[["X","2","3"],["4","X","6"],["7","8","9"]], :get_player_move})end) == "Please enter a tile selection:Tile already selected. Please select a different tile.\nX23\n4X6\n789\n"  
+  end
+
+  test "prints correct message when a win is detected" do
+    assert capture_io([input: "5"],fn ->  TicTacToe.UI.get_move({:x,[["X","2","3"],["4","5","6"],["7","8","X"]], :continue})end) == "Player X has won the game.\nX23\n4X6\n78X\n"
   end
 end
