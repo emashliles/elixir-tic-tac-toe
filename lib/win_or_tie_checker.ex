@@ -11,7 +11,7 @@ defmodule WinOrTieChecker do
   end
 
   def check_for_winning_row(x, []) do
-    :no_win_detected
+    :continue
   end
 
   def check_for_winning_row(x, [head | tail]) do
@@ -22,7 +22,7 @@ defmodule WinOrTieChecker do
 
   def check_for_winning_diagonal(:win, _, _, _), do: :win
 
-  def check_for_winning_diagonal(:no_win_detected, [head|tail], starting_element, next_square) do
+  def check_for_winning_diagonal(:continue, [head|tail], starting_element, next_square) do
     Enum.at(head,starting_element)
     |> check_diagonal_tiles(tail, starting_element, next_square)
   end
@@ -43,10 +43,10 @@ defmodule WinOrTieChecker do
   end
 
   def continue_diagonal_search?(false, previous_element_value, remaining_rows, element_to_check, _) do
-    :no_win_detected
+    :continue
   end
 
   def continue_diagonal_search?(false, previous_element_value, [], element_to_check) do
-    :no_win_detected
+    :continue
   end
 end

@@ -33,7 +33,8 @@ defmodule Board do
 
   def create_next_game_status(is_duplicate_selection, board, marker, selected_tile) when is_duplicate_selection === false  do
     new_board = replace_marker_in_board(board, selected_tile, marker)
-    {marker,new_board,:continue}
+    turn_type = WinOrTieChecker.check_if_win_or_tie(board)
+    {marker,new_board,turn_type}
   end
 
   def create_next_game_status(is_duplicate_selection, board, marker, _) when is_duplicate_selection === true do

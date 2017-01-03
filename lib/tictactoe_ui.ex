@@ -45,6 +45,12 @@ defmodule TicTacToe.UI do
     print_board(game_status)
   end
 
+  def print_turn(:win, game_status) do
+    IO.inspect game_status
+    IO.puts "Player has won the game"
+    print_board(game_status)
+  end
+
   def print_board(game_status) do
     elem(game_status, 1)
     |> format_board()

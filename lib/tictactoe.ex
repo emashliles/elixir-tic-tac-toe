@@ -19,6 +19,10 @@ import Board
     {:o ,elem(board, 1), :continue}
   end
 
+  def change_player(board, player, :win) do
+    {player,elem(board, 1), :win }
+  end
+
   def change_player(board, player, :tile_already_selected) do
     {player, elem(board, 1), :tile_already_selected}
   end

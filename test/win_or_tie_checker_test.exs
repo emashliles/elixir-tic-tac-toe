@@ -12,7 +12,7 @@ defmodule WinOrTieCheckerTests do
   test "retruns no_win_detected if none is found" do
     result = WinOrTieChecker.check_if_win_or_tie([["O","O","3"],["X","5","X"],["7","8","9"]])
 
-    assert result == :no_win_detected
+    assert result == :continue
   end
 
   test "can detect a left to right diagonal win" do
