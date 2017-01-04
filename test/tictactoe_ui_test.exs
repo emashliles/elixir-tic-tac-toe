@@ -18,7 +18,11 @@ defmodule TicTacToe.UI.Test do
     assert capture_io([input: "5"],fn ->  TicTacToe.UI.get_move({:o,[["X","2","3"],["4","X","6"],["7","8","9"]], :get_player_move})end) == "Please enter a tile selection:Tile already selected. Please select a different tile.\nX23\n4X6\n789\n"  
   end
 
-  test "prints correct message when a win is detected" do
-    assert capture_io([input: "5"],fn ->  TicTacToe.UI.get_move({:x,[["X","2","3"],["4","5","6"],["7","8","X"]], :continue})end) == "Please enter a tile selection:Player X has won the game.\nX23\n4X6\n78X\n"
+  test "prints correct message and ends when a win is detected" do
+    assert capture_io([input: "5"],fn ->  TicTacToe.UI.get_move({:x,[["X","2","3"],["4","5","6"],["7","8","X"]], :continue})end) == "Please enter a tile selection:Player X has won the game.\nX23\n4X6\n78X\nGoodbye.\n"
+  end
+
+  test "prints correct message and ends when a tie is detected" do
+    assert capture_io([input: "5"],fn ->  TicTacToe.UI.get_move({:x,[["O","O","X"],["X","5","O"],["O","X","O"]]  , :continue})end) == "Please enter a tile selection:This game is a tie.\nOOX\nXXO\nOXO\nGoodbye.\n"
   end
 end

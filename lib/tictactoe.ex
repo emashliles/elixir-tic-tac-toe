@@ -21,6 +21,10 @@ defmodule TicTacToe do
     {player,elem(game_status, 1), :win }
   end
 
+  def change_player(game_status, player, :tie) do
+    {player, elem(game_status, 1), :tie}
+  end
+
   def change_player(game_status, player, :tile_already_selected) do
     {player, elem(game_status, 1), :tile_already_selected}
   end

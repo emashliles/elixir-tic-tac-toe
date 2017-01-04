@@ -9,7 +9,7 @@ defmodule Mix.Tasks.TicTacToe do
 
  def game_loop(board) do
   TicTacToe.UI.get_move(board)
-  |>game_loop()
+  |> game_loop()
  end
 
 end

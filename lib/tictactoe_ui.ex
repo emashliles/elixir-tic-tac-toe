@@ -6,7 +6,7 @@ defmodule TicTacToe.UI do
   end
   
   def get_move(game_status) do
-    print_turn(:get_player_move,game_status) 
+    print_turn(:get_player_move, game_status) 
   end
 
   def get_tile_selection() do
@@ -15,7 +15,7 @@ defmodule TicTacToe.UI do
     |> String.to_integer()
   end
 
-  def make_and_print_move(selected_tile, game_status) do 
+  def make_move(selected_tile, game_status) do 
     TicTacToe.make_move(selected_tile, game_status)
   end
 
@@ -31,7 +31,7 @@ defmodule TicTacToe.UI do
 
   def print_turn(:get_player_move, game_status) do
     get_tile_selection()
-    |> make_and_print_move(game_status)
+    |> make_move(game_status)
     |> decide_turn_type()
   end
 
@@ -49,7 +49,16 @@ defmodule TicTacToe.UI do
     player_marker = get_marker_symbol(elem(game_status, 0))
     IO.puts "Player #{player_marker} has won the game."
     print_board(game_status)
+    print_game_end_message
   end
+
+  def print_turn(:tie, game_status) do
+    IO.puts "This game is a tie."
+    print_board(game_status)
+    print_game_end_message
+  end
+
+  def print_game_end_message(), do: IO.puts "Goodbye."
 
   def print_board(game_status) do
     elem(game_status, 1)
