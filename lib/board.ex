@@ -2,7 +2,7 @@ defmodule Board do
 
   @markers ["X","O"]
 
-  def create(board_size) do
+  def create() do
     {:x, [["1","2","3"],["4","5","6"],["7","8","9"]], :first_turn}
   end
 

@@ -1,7 +1,7 @@
 defmodule TicTacToe do
 
   def make_move() do
-    Board.create(3)
+    Board.create()
   end
 
   def make_move(selected_tile, game_status) do
