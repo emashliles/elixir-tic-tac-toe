@@ -1,12 +1,26 @@
 defmodule TicTacToe.UI do
 
+  def start_game_loop() do
+    start_game()
+    |> game_loop
+  end
+
+  def game_loop(game_status) do
+    unless elem(game_status, 2) == :game_over do
+      get_move(game_status)
+      |> game_loop
+    end
+  end
+
   def start_game() do
     TicTacToe.make_move()
     |> decide_turn_type()
   end
   
   def get_move(game_status) do
-    print_turn(:get_player_move, game_status) 
+    #unless elem(game_status, 2) == :game_over do
+      print_turn(:get_player_move, game_status)
+      # end
   end
 
   def get_tile_selection() do
@@ -20,8 +34,8 @@ defmodule TicTacToe.UI do
   end
 
    def decide_turn_type(game_status) do
-     elem(game_status, 2)
-     |> print_turn(game_status)
+       elem(game_status, 2)
+       |> print_turn(game_status)
    end
 
   def print_turn(:continue, game_status) do
@@ -50,6 +64,7 @@ defmodule TicTacToe.UI do
     IO.puts "Player #{player_marker} has won the game."
     print_board(game_status)
     print_game_end_message
+    {1,2,:game_over}
   end
 
   def print_turn(:tie, game_status) do
@@ -84,5 +99,4 @@ defmodule TicTacToe.UI do
     available_markers = [{:x,"X" },{:o, "O"}]
     available_markers[player_symbol]
   end
-
 end

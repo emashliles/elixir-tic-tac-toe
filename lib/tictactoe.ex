@@ -1,5 +1,5 @@
 defmodule TicTacToe do
-  
+
   def make_move() do
     Board.create(3)
   end
