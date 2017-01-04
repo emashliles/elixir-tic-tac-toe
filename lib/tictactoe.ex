@@ -1,30 +1,28 @@
 defmodule TicTacToe do
   
-import Board
-
   def make_move() do
     Board.create(3)
   end
 
-  def make_move(selected_tile, board) do
-    modified_board = Board.place_marker(selected_tile,board)
-    change_player(modified_board, elem(modified_board,0), elem(modified_board,2))
+  def make_move(selected_tile, game_status) do
+    modified_game_status = Board.place_marker(selected_tile,game_status)
+    change_player(modified_game_status, elem(modified_game_status,0), elem(modified_game_status,2))
   end
 
-  def change_player(board, :o, :continue) do 
-    {:x, elem(board, 1), :continue}
+  def change_player(game_status, :o, :continue) do 
+    {:x, elem(game_status, 1), :continue}
   end
 
-  def change_player(board, :x, :continue) do 
-    {:o ,elem(board, 1), :continue}
+  def change_player(game_status, :x, :continue) do 
+    {:o ,elem(game_status, 1), :continue}
   end
 
-  def change_player(board, player, :win) do
-    {player,elem(board, 1), :win }
+  def change_player(game_status, player, :win) do
+    {player,elem(game_status, 1), :win }
   end
 
-  def change_player(board, player, :tile_already_selected) do
-    {player, elem(board, 1), :tile_already_selected}
+  def change_player(game_status, player, :tile_already_selected) do
+    {player, elem(game_status, 1), :tile_already_selected}
   end
 
 end

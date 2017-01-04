@@ -46,8 +46,8 @@ defmodule TicTacToe.UI do
   end
 
   def print_turn(:win, game_status) do
-    IO.inspect game_status
-    IO.puts "Player has won the game"
+    player_marker = get_marker_symbol(elem(game_status, 0))
+    IO.puts "Player #{player_marker} has won the game."
     print_board(game_status)
   end
 
@@ -69,6 +69,11 @@ defmodule TicTacToe.UI do
 
   def insert_new_lines_into_board(formatted_rows, []) do
     formatted_rows
+  end
+
+  def get_marker_symbol(player_symbol) do
+    available_markers = [{:x,"X" },{:o, "O"}]
+    available_markers[player_symbol]
   end
 
 end
