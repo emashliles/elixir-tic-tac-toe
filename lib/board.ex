@@ -27,19 +27,13 @@ defmodule Board do
    |> divide_board_into_rows(row_size)
   end
 
-  def divide_board_into_rows(board, row_size) do
-    Enum.chunk(board, row_size)
-  end
-
   def create_next_game_status(is_duplicate_selection, board, marker, selected_tile) when is_duplicate_selection === false  do
     new_board = replace_marker_in_board(board, selected_tile, marker)
     turn_type = WinOrTieChecker.check_if_win_or_tie(new_board)
     {marker,new_board,turn_type}
   end
 
-  def create_next_game_status(is_duplicate_selection, board, marker, _) when is_duplicate_selection === true do
-    {marker, board,:tile_already_selected}
-  end
+  def create_next_game_status(is_duplicate_selection, board, marker, _) when is_duplicate_selection === true, do: {marker, board,:tile_already_selected}
 
   def get_marker_symbol(marker) do
     available_markers = [{:x, "X"}, {:o, "O"}]
@@ -48,6 +42,10 @@ defmodule Board do
 
   def zero_index_selection(selected_tile) do
     selected_tile - 1
+  end
+
+  def divide_board_into_rows(board, row_size) do
+    Enum.chunk(board, row_size)
   end
 
   def get_value_of_selected_tile(selected_tile, board) do

@@ -46,11 +46,9 @@ defmodule WinOrTieChecker do
   end
 
   def get_value_from_column(column_index, [], column_values) do
-    values = Enum.dedup(column_values)
-    #|> length()
-    #|> column_is_win(column_index, column_values)
-    len = length(values)
-    column_is_win(len,column_index,column_values)
+    Enum.dedup(column_values)
+    |> length()
+    |> column_is_win(column_index, column_values)
   end
 
   def column_is_win(1,_,_ ), do: :win
