@@ -14,7 +14,7 @@ defmodule TicTacToe.UI do
 
   def start_game() do
     TicTacToe.create_game_status()
-    |> decide_turn_type()
+    |> do_next_turn()
   end
   
   def get_move(game_status) do
@@ -31,8 +31,9 @@ defmodule TicTacToe.UI do
     TicTacToe.make_move(selected_tile, game_status)
   end
 
-   def decide_turn_type(game_status) do
+   def do_next_turn(game_status) do
      IO.puts IO.ANSI.clear
+
      elem(game_status, 2)
      |> do_turn(game_status)
    end
@@ -45,7 +46,7 @@ defmodule TicTacToe.UI do
   def do_turn(:get_player_move, game_status) do
     get_tile_selection()
     |> make_move(game_status)
-    |> decide_turn_type()
+    |> do_next_turn()
   end
 
   def do_turn(:first_turn, game_status) do
