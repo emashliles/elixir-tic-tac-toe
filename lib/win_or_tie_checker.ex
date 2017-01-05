@@ -8,13 +8,9 @@ defmodule WinOrTieChecker do
     |> check_for_tied_board(board)
   end
 
-  def check_for_winning_row(1, _) do
-    :win
-  end
+  def check_for_winning_row(1, _), do: :win
 
-  def check_for_winning_row(_, []) do
-    :continue
-  end
+  def check_for_winning_row(_, []), do: :continue
 
   def check_for_winning_row(_, [head | tail]) do
     MapSet.new(head)
@@ -71,9 +67,7 @@ defmodule WinOrTieChecker do
 
   def continue_diagonal_search?(true, _, [], _, _), do: :win
 
-  def continue_diagonal_search?(true, previous_element_value, remaining_rows, element_to_check, next_square) do
-    check_diagonal_tiles(previous_element_value, remaining_rows, element_to_check, next_square)
-  end
+  def continue_diagonal_search?(true, previous_element_value, remaining_rows, element_to_check, next_square), do: check_diagonal_tiles(previous_element_value, remaining_rows, element_to_check, next_square)
 
   def continue_diagonal_search?(false, previous_element_value, remaining_rows, element_to_check, _), do: :continue
 

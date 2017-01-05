@@ -22,6 +22,7 @@ defmodule Board do
    marker_string = get_marker_symbol(marker)
    index_selection = zero_index_selection(selected_tile)
    row_size = length(board)
+
    List.flatten(board)
    |> List.replace_at(index_selection, marker_string)
    |> divide_board_into_rows(row_size)
