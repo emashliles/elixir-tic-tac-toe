@@ -32,8 +32,9 @@ defmodule TicTacToe.UI do
   end
 
    def decide_turn_type(game_status) do
-       elem(game_status, 2)
-       |> do_turn(game_status)
+     IO.puts IO.ANSI.clear
+     elem(game_status, 2)
+     |> do_turn(game_status)
    end
 
   def do_turn(:continue, game_status) do
