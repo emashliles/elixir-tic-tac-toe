@@ -22,7 +22,7 @@ defmodule TicTacToe.UI do
   end
 
   def get_tile_selection() do
-    IO.gets("Please enter a tile selection:" )
+    IO.gets("Please enter a tile selection :" )
     |> String.trim()
     |> String.to_integer()
   end
