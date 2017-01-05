@@ -22,7 +22,7 @@ defmodule TicTacToe.UI do
   end
 
   def get_tile_selection() do
-    IO.gets("Please enter a tile selection:")
+    IO.gets("Please enter a tile selection:" )
     |> String.trim()
     |> String.to_integer()
   end
@@ -82,7 +82,21 @@ defmodule TicTacToe.UI do
   end
 
   def format_board(board) do
-    insert_new_lines_into_board([], board)
+    spaced_board = add_spaces([], board)
+    insert_new_lines_into_board([], spaced_board)
+  end
+
+  def add_spaces(accumulator, []) do
+    accumulator
+  end
+
+  def add_spaces(accumulator, [head|tail]) do
+    spaced_row = add_spaces_to_tiles(head)
+    List.insert_at(accumulator, 100, spaced_row) |> add_spaces(tail)
+  end
+
+  def add_spaces_to_tiles(row) do
+    Enum.map(row, fn(value) -> String.pad_trailing(value, 2) end)
   end
 
   def insert_new_lines_into_board(formatted_rows,[head | tail]) do
