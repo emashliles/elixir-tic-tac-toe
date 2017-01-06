@@ -54,8 +54,7 @@ defmodule WinOrTieChecker do
   def check_for_winning_diagonal(:win, _, _, _), do: :win
 
   def check_for_winning_diagonal(:continue, [head|tail], starting_element, next_square) do
-    Enum.at(head,starting_element)
-    |> check_diagonal_tiles(tail, starting_element, next_square)
+    Enum.at(head,starting_element) |> check_diagonal_tiles(tail, starting_element, next_square)
   end
 
   def check_diagonal_tiles(previous_element_value, [head | tail], element_to_check, next_square) do
