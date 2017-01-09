@@ -35,8 +35,12 @@ defmodule TicTacToe.UI.Test do
     assert String.contains?(game_output,"Bad input. Player X, please re-enter selection.\n O | O | X \n===========\n X | 5 | O \n===========\n O | X | O \n")
   end
 
-  test "will return :input_error if a string was entered" do
+  test "will return :bad_input if a string was entered" do
     assert TicTacToe.UI.check_tile_selection("five") == :bad_input
+  end
+
+  test "will return :bad_input if input is negative" do
+    assert TicTacToe.UI.check_tile_selection("-1") == :bad_input
   end
 end
 

@@ -101,9 +101,18 @@ defmodule TicTacToe.UI do
     try do
       String.trim(selection)
       |> String.to_integer()
+      |> selection_is_negative()
     rescue
       ArgumentError -> :bad_input
       FunctionClauseError -> :bad_input
+    end
+  end
+
+  def selection_is_negative(selection) do
+    if selection <= 0 do
+      :bad_input
+    else
+      selection
     end
   end
 
