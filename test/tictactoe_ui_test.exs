@@ -3,27 +3,27 @@ defmodule TicTacToe.UI.Test do
   import ExUnit.CaptureIO
 
   test "can print the board" do
-    assert capture_io(fn -> TicTacToe.UI.start_game() end) == "\e[2J\n 1 | 2 | 3 \n===========\n 4 | 5 | 6 \n===========\n 7 | 8 | 9 \n"
+    assert capture_io(fn -> TicTacToe.UI.start_game() end) == "\e[H\e[2J\n 1 | 2 | 3 \n===========\n 4 | 5 | 6 \n===========\n 7 | 8 | 9 \n"
   end
   
   test "can print the board after player one input" do
-    assert capture_io([input: "1"],fn ->  TicTacToe.UI.get_move({:x,[["1","2","3"],["4","5","6"],["7","8","9"]], :continue})end) == "Please enter a tile selection :\e[2J\n X | 2 | 3 \n===========\n 4 | 5 | 6 \n===========\n 7 | 8 | 9 \n"  
+    assert capture_io([input: "1"],fn ->  TicTacToe.UI.get_move({:x,[["1","2","3"],["4","5","6"],["7","8","9"]], :continue})end) == "Please enter a tile selection :\e[H\e[2J\n X | 2 | 3 \n===========\n 4 | 5 | 6 \n===========\n 7 | 8 | 9 \n"  
   end
 
   test "can print the board after player two input" do
-    assert capture_io([input: "2"],fn ->  TicTacToe.UI.get_move({:o,[["X","2","3"],["4","5","6"],["7","8","9"]], :continue})end) == "Please enter a tile selection :\e[2J\n X | O | 3 \n===========\n 4 | 5 | 6 \n===========\n 7 | 8 | 9 \n"  
+    assert capture_io([input: "2"],fn ->  TicTacToe.UI.get_move({:o,[["X","2","3"],["4","5","6"],["7","8","9"]], :continue})end) == "Please enter a tile selection :\e[H\e[2J\n X | O | 3 \n===========\n 4 | 5 | 6 \n===========\n 7 | 8 | 9 \n"  
   end
 
   test "prints correct message after duplicate tile selected" do
-    assert capture_io([input: "5"],fn ->  TicTacToe.UI.get_move({:o,[["X","2","3"],["4","X","6"],["7","8","9"]], :get_player_move})end) == "Please enter a tile selection :\e[2J\nTile already selected. Please select a different tile.\n X | 2 | 3 \n===========\n 4 | X | 6 \n===========\n 7 | 8 | 9 \n"  
+    assert capture_io([input: "5"],fn ->  TicTacToe.UI.get_move({:o,[["X","2","3"],["4","X","6"],["7","8","9"]], :get_player_move})end) == "Please enter a tile selection :\e[H\e[2J\nTile already selected. Please select a different tile.\n X | 2 | 3 \n===========\n 4 | X | 6 \n===========\n 7 | 8 | 9 \n"  
   end
 
   test "prints correct message and ends when a win is detected" do
-    assert capture_io([input: "5"],fn ->  TicTacToe.UI.get_move({:x,[["X","2","3"],["4","5","6"],["7","8","X"]], :continue})end) == "Please enter a tile selection :\e[2J\nPlayer X has won the game.\n X | 2 | 3 \n===========\n 4 | X | 6 \n===========\n 7 | 8 | X \nGoodbye.\n"
+    assert capture_io([input: "5"],fn ->  TicTacToe.UI.get_move({:x,[["X","2","3"],["4","5","6"],["7","8","X"]], :continue})end) == "Please enter a tile selection :\e[H\e[2J\nPlayer X has won the game.\n X | 2 | 3 \n===========\n 4 | X | 6 \n===========\n 7 | 8 | X \nGoodbye.\n"
   end
 
   test "prints correct message and ends when a tie is detected" do
-    assert capture_io([input: "5"],fn ->  TicTacToe.UI.get_move({:x,[["O","O","X"],["X","5","O"],["O","X","O"]]  , :continue})end) == "Please enter a tile selection :\e[2J\nThis game is a tie.\n O | O | X \n===========\n X | X | O \n===========\n O | X | O \nGoodbye.\n"
+    assert capture_io([input: "5"],fn ->  TicTacToe.UI.get_move({:x,[["O","O","X"],["X","5","O"],["O","X","O"]]  , :continue})end) == "Please enter a tile selection :\e[H\e[2J\nThis game is a tie.\n O | O | X \n===========\n X | X | O \n===========\n O | X | O \nGoodbye.\n"
   end
 
   test "formats the board" do
