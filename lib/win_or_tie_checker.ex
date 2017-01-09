@@ -59,6 +59,7 @@ defmodule WinOrTieChecker do
 
   def check_diagonal_tiles(previous_element_value, [head | tail], element_to_check, next_square) do
     modified_element_to_check = next_square + element_to_check
+
     Enum.at(head,modified_element_to_check)
     |> String.contains?(previous_element_value)
     |> continue_diagonal_search?(previous_element_value, tail, modified_element_to_check, next_square)

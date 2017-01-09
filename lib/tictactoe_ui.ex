@@ -21,12 +21,6 @@ defmodule TicTacToe.UI do
       do_turn(:get_player_move, game_status)
   end
 
-  def get_tile_selection() do
-    IO.gets("Please enter a tile selection :" )
-    |> String.trim()
-    |> String.to_integer()
-  end
-
   def make_move(selected_tile, game_status) do 
     TicTacToe.make_move(selected_tile, game_status)
   end
@@ -83,9 +77,17 @@ defmodule TicTacToe.UI do
     game_status
   end
 
+  def get_tile_selection() do
+    IO.gets("Please enter a tile selection :" )
+    |> String.trim()
+    |> String.to_integer()
+  end
+
   def format_board(board) do
     spaced_board = add_spaces([], board)
-    insert_new_lines_into_board([], spaced_board)
+    board_with_lines = add_lines([], spaced_board)
+    board_with_row_separator = add_separators(board_with_lines)
+    insert_new_lines_into_board([], board_with_row_separator)
   end
 
   def add_spaces(accumulator, []) do
@@ -94,11 +96,30 @@ defmodule TicTacToe.UI do
 
   def add_spaces(accumulator, [head|tail]) do
     spaced_row = add_spaces_to_tiles(head)
-    List.insert_at(accumulator, 100, spaced_row) |> add_spaces(tail)
+    leading_spaced_row = add_spaces_to_tiles_leading(spaced_row)
+    List.insert_at(accumulator, 100, leading_spaced_row) |> add_spaces(tail)
   end
 
   def add_spaces_to_tiles(row) do
-    Enum.map(row, fn(value) -> String.pad_trailing(value, 2) end)
+    Enum.map(row, fn(value) -> 
+      String.pad_trailing(value, 2)
+    end)
+  end
+
+  def add_spaces_to_tiles_leading(row) do
+    Enum.map(row, fn(value) -> 
+      String.pad_leading(value, 3)
+    end)
+  end
+  def add_lines(accumulator, []), do: accumulator
+
+  def add_lines(accumulator,[head | tail]) do
+   accumulator ++  [Enum.intersperse(head, "|")]|> add_lines(tail)
+  end
+
+  def add_separators(board) do
+    separator = ["==========="]
+    Enum.intersperse(board, separator)
   end
 
   def insert_new_lines_into_board(formatted_rows,[head | tail]) do
