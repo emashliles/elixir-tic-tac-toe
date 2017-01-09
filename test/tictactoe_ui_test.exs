@@ -29,4 +29,15 @@ defmodule TicTacToe.UI.Test do
   test "formats the board" do
     assert TicTacToe.UI.format_board([["1","2","3"], ["4","5","6"], ["7","8","9"]]) == [[" 1 ","|"," 2 ", "|"," 3 ", "\n"],["===========", "\n"],[" 4 ", "|"," 5 ", "|"," 6 ", "\n"],["===========", "\n"],[" 7 ", "|"," 8 ", "|"," 9 ", "\n"]]
   end
+
+  test "prompt is given for player to re-take turn on bad input" do
+    game_output = capture_io([input: "five\n5"],fn ->  TicTacToe.UI.get_move({:x,[["O","O","X"],["X","5","O"],["O","X","O"]]  , :continue})end)
+    assert String.contains?(game_output,"Bad input. Player X, please re-enter selection.\n O | O | X \n===========\n X | 5 | O \n===========\n O | X | O \n")
+  end
+
+  test "will return :input_error if a string was entered" do
+    assert TicTacToe.UI.check_tile_selection("five") == :bad_input
+  end
 end
+
+ 

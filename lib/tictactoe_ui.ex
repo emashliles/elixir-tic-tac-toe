@@ -24,16 +24,20 @@ defmodule TicTacToe.UI do
       do_turn(:get_player_move, game_status)
   end
 
+  def make_move(:bad_input, game_status) do
+
+  end
+
   def make_move(selected_tile, game_status) do 
     TicTacToe.make_move(selected_tile, game_status)
   end
 
-   def do_next_turn(game_status) do
-     IO.puts @clear_screen
+  def do_next_turn(game_status) do
+    IO.puts @clear_screen
 
-     elem(game_status, 2)
-     |> do_turn(game_status)
-   end
+    elem(game_status, 2)
+    |> do_turn(game_status)
+  end
 
   def do_turn(:continue, game_status) do
     print_board(game_status)
@@ -41,9 +45,17 @@ defmodule TicTacToe.UI do
   end
 
   def do_turn(:get_player_move, game_status) do
-    get_tile_selection()
-    |> make_move(game_status)
-    |> do_next_turn()
+    selection = get_tile_selection()
+    player = get_marker_symbol(game_status)
+    
+    if selection == :bad_input do
+      IO.puts @clear_screen
+      IO.puts "Bad input. Player #{player}, please re-enter selection."
+      print_board(game_status)
+      do_turn(:get_player_move, game_status)
+    else
+      make_move(selection, game_status)|> do_next_turn()
+    end
   end
 
   def do_turn(:first_turn, game_status) do
@@ -81,9 +93,18 @@ defmodule TicTacToe.UI do
   end
 
   def get_tile_selection() do
-    IO.gets("Please enter a tile selection :" )
-    |> String.trim()
-    |> String.to_integer()
+    IO.gets("Please enter a tile selection :")
+    |> check_tile_selection()
+  end
+
+  def check_tile_selection(selection) do
+    try do
+      String.trim(selection)
+      |> String.to_integer()
+    rescue
+      ArgumentError -> :bad_input
+      FunctionClauseError -> :bad_input
+    end
   end
 
   def format_board(board) do
