@@ -1,5 +1,8 @@
 defmodule TicTacToe.UI do
 
+
+  @clear_screen "\e[H\e[2J"
+
   def start_game_loop() do
     start_game()
     |> game_loop
@@ -26,7 +29,7 @@ defmodule TicTacToe.UI do
   end
 
    def do_next_turn(game_status) do
-     IO.puts IO.ANSI.clear
+     IO.puts @clear_screen
 
      elem(game_status, 2)
      |> do_turn(game_status)
