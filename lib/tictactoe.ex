@@ -5,7 +5,7 @@ defmodule TicTacToe do
   end
 
   def make_move(selected_tile, game_status) do
-    tile_taken = Board.check_tile_not_taken(elem(game_status, 1), selected_tile, :x)
+    tile_taken = Board.check_tile_not_taken(elem(game_status, 1), selected_tile)
     if tile_taken == :tile_already_selected do
       create_new_game_status(game_status, elem(game_status, 0), :tile_already_selected)
     else
@@ -16,6 +16,5 @@ defmodule TicTacToe do
 
   def create_new_game_status({_, board, _}, :o, :continue), do: {:x, board, :continue}
   def create_new_game_status({_, board, _}, :x, :continue), do: {:o ,board, :continue}
-  def create_new_game_status({_, board, _}, player, result),  do: {player, board,result }
-
+  def create_new_game_status({_, board, _}, player, result), do: {player, board, result}
 end

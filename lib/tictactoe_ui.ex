@@ -126,7 +126,7 @@ defmodule TicTacToe.UI do
   defp add_lines(accumulator, []), do: accumulator
 
   defp add_lines(accumulator,[head | tail]) do
-   accumulator ++  [Enum.intersperse(head, "|")]|> add_lines(tail)
+    accumulator ++  [Enum.intersperse(head, "|")]|> add_lines(tail)
   end
 
   defp add_separators(board) do
