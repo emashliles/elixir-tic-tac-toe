@@ -6,22 +6,24 @@ defmodule Board do
 
   def place_marker(selected_tile, game_status) do
     player_symbol = elem(game_status, 0)
-    elem(game_status, 1) |> check_tile_not_taken(selected_tile, player_symbol) 
+    create_next_game_status(elem(game_status, 1), player_symbol, selected_tile)
   end
 
   def check_tile_not_taken(board, selected_tile, player_symbol) do
      selection_value = get_value_of_selected_tile(zero_index_selection(selected_tile), board)
-
-     Enum.member?(get_all_marker_values,selection_value) |> create_next_game_status(board, player_symbol, selected_tile)
+    
+   if Enum.member?(get_all_marker_values,selection_value) do
+     :tile_already_selected
+   else
+     :continue
+   end
   end
 
-  def create_next_game_status(is_duplicate_selection, board, player_symbol, selected_tile) when is_duplicate_selection === false  do
+  def create_next_game_status( board, player_symbol, selected_tile) do
     new_board = replace_marker_in_board(board, selected_tile, player_symbol)
     turn_type = WinOrTieChecker.check_if_win_or_tie(new_board)
     {player_symbol,new_board,turn_type}
   end
-
-  def create_next_game_status(is_duplicate_selection, board, player_symbol, _) when is_duplicate_selection === true, do: {player_symbol, board,:tile_already_selected}
 
   def replace_marker_in_board(board,selected_tile,player_symbol) do
     marker_string = get_marker_symbol(player_symbol)

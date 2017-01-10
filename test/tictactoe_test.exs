@@ -2,7 +2,7 @@ defmodule TicTacToeTest do
   use ExUnit.Case
   doctest TicTacToe
 
-  test "it can retrun and empty board" do
+  test "it can retrun and empty game status" do
     assert TicTacToe.create_game_status() == {:x, [["1","2","3"],["4","5","6"],["7","8","9"]], :first_turn}
   end
 
