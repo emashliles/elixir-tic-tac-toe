@@ -14,7 +14,7 @@ defmodule TicTacToe do
     end
   end
 
-  def create_new_game_status({_, board, _}, :o, :continue), do: {:x, board, :continue}
-  def create_new_game_status({_, board, _}, :x, :continue), do: {:o ,board, :continue}
-  def create_new_game_status({_, board, _}, player, result), do: {player, board, result}
+  defp create_new_game_status({_, board, _}, :o, :continue), do: {:x, board, :continue}
+  defp create_new_game_status({_, board, _}, :x, :continue), do: {:o ,board, :continue}
+  defp create_new_game_status({_, board, _}, player, result), do: {player, board, result}
 end
