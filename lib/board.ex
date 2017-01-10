@@ -6,7 +6,7 @@ defmodule Board do
 
   def place_marker(selected_tile, game_status) do
     player_symbol = elem(game_status, 0)
-    elem(game_status, 1) |> check_tile_not_taken(selected_tile, player_symbol)
+    elem(game_status, 1) |> check_tile_not_taken(selected_tile, player_symbol) 
   end
 
   def check_tile_not_taken(board, selected_tile, player_symbol) do
@@ -22,14 +22,6 @@ defmodule Board do
   end
 
   def create_next_game_status(is_duplicate_selection, board, player_symbol, _) when is_duplicate_selection === true, do: {player_symbol, board,:tile_already_selected}
-
-  def get_marker_symbol(player_symbol), do: Markers.get_player_marker(player_symbol)
-
-  def get_all_marker_values(), do: Markers.get_all_markers()
-
-  def zero_index_selection(selected_tile), do: selected_tile - 1
-
-  def divide_board_into_rows(board, row_size), do: Enum.chunk(board, row_size)
 
   def replace_marker_in_board(board,selected_tile,player_symbol) do
     marker_string = get_marker_symbol(player_symbol)
@@ -49,4 +41,13 @@ defmodule Board do
     List.flatten(board)
     |> Enum.at(selected_tile)
   end
+  
+  def get_marker_symbol(player_symbol), do: Markers.get_player_marker(player_symbol)
+
+  def get_all_marker_values(), do: Markers.get_all_markers()
+
+  def zero_index_selection(selected_tile), do: selected_tile - 1
+
+  def divide_board_into_rows(board, row_size), do: Enum.chunk(board, row_size)
+
 end

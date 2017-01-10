@@ -89,7 +89,7 @@ defmodule TicTacToe.UI do
   end
 
   def get_tile_selection() do
-    IO.gets("Please enter a tile selection :")
+    IO.gets("Please enter a tile selection: ")
     |> check_tile_selection()
   end
 

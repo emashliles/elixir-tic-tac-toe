@@ -84,5 +84,5 @@ defmodule WinOrTieChecker do
 
   def board_is_tied(2), do: :tie
 
-  def board_is_tied(x), do: :continue 
+  def board_is_tied(_), do: :continue 
 end
