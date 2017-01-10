@@ -3,7 +3,7 @@ defmodule Mix.Tasks.TicTacToe do
 
   @shortdoc "Runs TicTacToe"
   def run(_) do
-    TicTacToe.UI.start_game_loop()
+    TicTacToe.UI.start_game_loop
   end
 end
 

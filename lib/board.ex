@@ -1,6 +1,6 @@
 defmodule Board do
 
-  def create() do
+  def create do
     {:x, [["1","2","3"],["4","5","6"],["7","8","9"]], :first_turn}
   end
 
@@ -19,7 +19,7 @@ defmodule Board do
    end
   end
 
-  def create_next_game_status( board, player_symbol, selected_tile) do
+  def create_next_game_status(board, player_symbol, selected_tile) do
     new_board = replace_marker_in_board(board, selected_tile, player_symbol)
     turn_type = WinOrTieChecker.check_if_win_or_tie(new_board)
     {player_symbol,new_board,turn_type}

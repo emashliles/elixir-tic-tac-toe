@@ -2,10 +2,7 @@ defmodule TicTacToe.UI do
 
   @clear_screen "\e[H\e[2J"
 
-  def start_game_loop() do
-    start_game()
-    |> game_loop
-  end
+  def start_game_loop, do: start_game |> game_loop
 
   def game_loop(game_status) do
     unless elem(game_status, 2) == :game_over do
@@ -14,18 +11,11 @@ defmodule TicTacToe.UI do
     end
   end
 
-  def start_game() do
-    TicTacToe.create_game_status()
-    |> do_next_turn()
-  end
+  def start_game, do: TicTacToe.create_game_status |> do_next_turn
   
-  def get_move(game_status) do
-      do_turn(:get_player_move, game_status)
-  end
+  def get_move(game_status), do: do_turn(:get_player_move, game_status)
 
-  def make_move(selected_tile, game_status) do 
-    TicTacToe.make_move(selected_tile, game_status)
-  end
+  def make_move(selected_tile, game_status), do: TicTacToe.make_move(selected_tile, game_status)
 
   def do_next_turn(game_status) do
     IO.puts @clear_screen
@@ -34,11 +24,15 @@ defmodule TicTacToe.UI do
     |> do_turn(game_status)
   end
 
-  def do_turn(:continue, game_status) do
-    print_board(game_status)
+  defp print_board(game_status) do
+    elem(game_status, 1)
+    |> format_board()
+    |> IO.write
+
     game_status
   end
 
+  def do_turn(:continue, game_status), do: print_board(game_status)
   def do_turn(:get_player_move, game_status) do
     board_size = get_board_size(game_status)
     selection = get_tile_selection()
@@ -79,19 +73,10 @@ defmodule TicTacToe.UI do
     {:player,:board,:game_over}
   end
 
-  def print_game_end_message(), do: IO.puts "Goodbye."
+  defp print_game_end_message, do: IO.puts "Goodbye."
 
-  def print_board(game_status) do
-    elem(game_status, 1)
-    |> format_board()
-    |> IO.write
-    game_status
-  end
 
-  def get_tile_selection() do
-    IO.gets("Please enter a tile selection: ")
-    |> check_tile_selection()
-  end
+  defp get_tile_selection, do: IO.gets("Please enter a tile selection: ")|> check_tile_selection()
 
   def check_tile_selection(selection) do
     try do
@@ -104,7 +89,7 @@ defmodule TicTacToe.UI do
     end
   end
 
-  def selection_is_negative(selection) do
+  defp selection_is_negative(selection) do
     if selection <= 0 do
       :bad_input
     else
@@ -119,57 +104,55 @@ defmodule TicTacToe.UI do
     insert_new_lines_into_board([], board_with_row_separator)
   end
 
-  def add_spaces(accumulator, []) do
-    accumulator
-  end
+  defp add_spaces(accumulator, []), do: accumulator
 
-  def add_spaces(accumulator, [head|tail]) do
+  defp add_spaces(accumulator, [head|tail]) do
     spaced_row = add_spaces_to_tiles(head)
     leading_spaced_row = add_spaces_to_tiles_leading(spaced_row)
     List.insert_at(accumulator, 100, leading_spaced_row) |> add_spaces(tail)
   end
 
-  def add_spaces_to_tiles(row) do
+  defp add_spaces_to_tiles(row) do
     Enum.map(row, fn(value) -> 
       String.pad_trailing(value, 2)
     end)
   end
 
-  def add_spaces_to_tiles_leading(row) do
+  defp add_spaces_to_tiles_leading(row) do
     Enum.map(row, fn(value) -> 
       String.pad_leading(value, 3)
     end)
   end
-  def add_lines(accumulator, []), do: accumulator
+  defp add_lines(accumulator, []), do: accumulator
 
-  def add_lines(accumulator,[head | tail]) do
+  defp add_lines(accumulator,[head | tail]) do
    accumulator ++  [Enum.intersperse(head, "|")]|> add_lines(tail)
   end
 
-  def add_separators(board) do
+  defp add_separators(board) do
     row_length = get_chars_in_each_row(board)
     separator =  String.duplicate("=", row_length)
     Enum.intersperse(board, [separator])
   end
 
-  def insert_new_lines_into_board(formatted_rows,[head | tail]) do
+  defp insert_new_lines_into_board(formatted_rows,[head | tail]) do
     List.insert_at(formatted_rows, -1,  head ++ ["\n"]) 
     |> insert_new_lines_into_board(tail)
   end
 
-  def insert_new_lines_into_board(formatted_rows, []), do: formatted_rows
+  defp insert_new_lines_into_board(formatted_rows, []), do: formatted_rows
 
-  def get_marker_symbol(game_status) do
+  defp get_marker_symbol(game_status) do
     elem(game_status, 0) |> Markers.get_player_marker()
   end
 
-  def get_board_size(game_status) do
+  defp get_board_size(game_status) do
     elem(game_status, 1)
     |> List.flatten()
     |> length
   end
 
-  def get_chars_in_each_row(board) do
+  defp get_chars_in_each_row(board) do
     List.first(board)
     |> List.to_string()
     |> String.length()
