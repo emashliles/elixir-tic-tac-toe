@@ -147,8 +147,9 @@ defmodule TicTacToe.UI do
   end
 
   def add_separators(board) do
-    separator = ["==========="]
-    Enum.intersperse(board, separator)
+    row_length = get_chars_in_each_row(board)
+    separator =  String.duplicate("=", row_length)
+    Enum.intersperse(board, [separator])
   end
 
   def insert_new_lines_into_board(formatted_rows,[head | tail]) do
@@ -166,5 +167,11 @@ defmodule TicTacToe.UI do
     elem(game_status, 1)
     |> List.flatten()
     |> length
+  end
+
+  def get_chars_in_each_row(board) do
+    List.first(board)
+    |> List.to_string()
+    |> String.length()
   end
 end
