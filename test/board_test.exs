@@ -15,6 +15,6 @@ defmodule BoardTests do
   end
 
   test "it can detect if a tile has already been taken" do
-    assert Board.check_tile_not_taken([["1","2","3"],["4","5","X"],["7","8","9"]],6 ) == :tile_already_selected
+    assert Board.check_tile_not_taken([["1","2","3"],["4","5","X"],["7","8","9"]], 6) == :tile_already_selected
   end
 end
