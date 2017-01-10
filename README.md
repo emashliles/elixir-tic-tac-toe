@@ -1,24 +1,17 @@
-# Tictactoe
+# Elixir Tic Tac Toe
 
-**TODO: Add description**
 
-## Installation
+## Running the game
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
-
-  1. Add `tictactoe` to your list of dependencies in `mix.exs`:
-
+   You can run the game using the mix task included. 
     ```elixir
-    def deps do
-      [{:tictactoe, "~> 0.1.0"}]
-    end
+    mix compile
+    mix tic_tac_toe
     ```
 
-  2. Ensure `tictactoe` is started before your application:
+## Run the tests continuously
 
     ```elixir
-    def application do
-      [applications: [:tictactoe]]
-    end
+    mix test.watch
     ```
 
