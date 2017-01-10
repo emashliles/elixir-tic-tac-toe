@@ -42,6 +42,11 @@ defmodule TicTacToe.UI.Test do
   test "will return :bad_input if input is negative" do
     assert TicTacToe.UI.check_tile_selection("-1") == :bad_input
   end
+
+  test "will return :bad_input if input is larger than the board" do
+    game_output = capture_io([input: "9999999\n9"],fn ->  TicTacToe.UI.get_move({:x,[["O","O","X"],["X","5","O"],["O","X","O"]]  , :continue})end)
+    assert String.contains?(game_output,"Bad input. Player X, please re-enter selection.\n O | O | X \n===========\n X | 5 | O \n===========\n O | X | O \n")
+  end
 end
 
  

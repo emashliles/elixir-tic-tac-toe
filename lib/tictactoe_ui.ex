@@ -1,6 +1,5 @@
 defmodule TicTacToe.UI do
 
-
   @clear_screen "\e[H\e[2J"
 
   def start_game_loop() do
@@ -24,10 +23,6 @@ defmodule TicTacToe.UI do
       do_turn(:get_player_move, game_status)
   end
 
-  def make_move(:bad_input, game_status) do
-
-  end
-
   def make_move(selected_tile, game_status) do 
     TicTacToe.make_move(selected_tile, game_status)
   end
@@ -45,10 +40,11 @@ defmodule TicTacToe.UI do
   end
 
   def do_turn(:get_player_move, game_status) do
+    board_size = get_board_size(game_status)
     selection = get_tile_selection()
     player = get_marker_symbol(game_status)
     
-    if selection == :bad_input do
+    if selection == :bad_input or selection > board_size do
       IO.puts @clear_screen
       IO.puts "Bad input. Player #{player}, please re-enter selection."
       print_board(game_status)
@@ -164,5 +160,11 @@ defmodule TicTacToe.UI do
 
   def get_marker_symbol(game_status) do
     elem(game_status, 0) |> Markers.get_player_marker()
+  end
+
+  def get_board_size(game_status) do
+    elem(game_status, 1)
+    |> List.flatten()
+    |> length
   end
 end
