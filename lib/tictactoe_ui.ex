@@ -4,6 +4,8 @@ defmodule TicTacToe.UI do
 
   def start_game_loop, do: start_game |> game_loop
 
+  def start_game, do: TicTacToe.first_game_status |> do_next_turn
+
   def game_loop({_,_,:game_over}), do: nil
   def game_loop(game_status) do
     game_status  
@@ -11,8 +13,6 @@ defmodule TicTacToe.UI do
     |> game_loop
   end
 
-  def start_game, do: TicTacToe.first_game_status |> do_next_turn
-  
   def get_move(game_status), do: do_turn(:get_player_move, game_status)
 
   def make_move(selected_tile, game_status), do: TicTacToe.make_move(selected_tile, game_status)
@@ -20,12 +20,6 @@ defmodule TicTacToe.UI do
   def do_next_turn({_,_,turn_type} = game_status) do
     IO.puts @clear_screen
     do_turn(turn_type, game_status)
-  end
-
-  defp print_board({_, board, _}) do
-    board
-    |> format_board()
-    |> IO.write
   end
 
   def do_turn(:continue, game_status) do
@@ -76,6 +70,11 @@ defmodule TicTacToe.UI do
 
   defp print_game_end_message, do: IO.puts "Goodbye."
 
+  defp print_board({_, board, _}) do
+    board
+    |> format_board()
+    |> IO.write
+  end
 
   defp get_tile_selection, do: IO.gets("Please enter a tile selection: ")|> check_tile_selection()
 
@@ -99,21 +98,23 @@ defmodule TicTacToe.UI do
   end
 
   def format_board(board) do
-    spaced_board = add_spaces([], board)
-    board_with_lines = add_lines([], spaced_board)
-    board_with_row_separator = add_separators(board_with_lines)
-    insert_new_lines_into_board([], board_with_row_separator)
+    board
+    |> add_spaces([])
+    |> add_lines([])
+    |> add_separators
+    |> insert_new_lines([])
   end
 
-  defp add_spaces(accumulator, []), do: accumulator
+  defp add_spaces([], accumulator), do: accumulator
 
-  defp add_spaces(accumulator, [head|tail]) do
-    spaced_row = add_spaces_to_tiles(head)
+  defp add_spaces([head|tail], accumulator) do
+    spaced_row = add_spaces_to_tiles_trailing(head)
     leading_spaced_row = add_spaces_to_tiles_leading(spaced_row)
-    List.insert_at(accumulator, 100, leading_spaced_row) |> add_spaces(tail)
+    list = List.insert_at(accumulator, 100, leading_spaced_row)
+    add_spaces(tail, list)
   end
 
-  defp add_spaces_to_tiles(row) do
+  defp add_spaces_to_tiles_trailing(row) do
     Enum.map(row, fn(value) -> 
       String.pad_trailing(value, 2)
     end)
@@ -124,10 +125,12 @@ defmodule TicTacToe.UI do
       String.pad_leading(value, 3)
     end)
   end
-  defp add_lines(accumulator, []), do: accumulator
 
-  defp add_lines(accumulator,[head | tail]) do
-    accumulator ++  [Enum.intersperse(head, "|")]|> add_lines(tail)
+  defp add_lines([], accumulator), do: accumulator
+
+  defp add_lines([head | tail], accumulator) do
+    lined_row = accumulator ++  [Enum.intersperse(head, "|")]
+    add_lines(tail, lined_row)
   end
 
   defp add_separators(board) do
@@ -136,12 +139,12 @@ defmodule TicTacToe.UI do
     Enum.intersperse(board, [separator])
   end
 
-  defp insert_new_lines_into_board(formatted_rows,[head | tail]) do
-    List.insert_at(formatted_rows, -1,  head ++ ["\n"]) 
-    |> insert_new_lines_into_board(tail)
+  defp insert_new_lines([head | tail], accumulator) do
+    row_with_newline = List.insert_at(accumulator, -1,  head ++ ["\n"]) 
+    insert_new_lines(tail, row_with_newline)
   end
 
-  defp insert_new_lines_into_board(formatted_rows, []), do: formatted_rows
+  defp insert_new_lines([], accumulator), do: accumulator
 
   defp get_marker_symbol({player_symbol, _,_}), do: Markers.get_player_marker(player_symbol)
 
