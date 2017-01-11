@@ -20,7 +20,7 @@ defmodule TicTacToe.UI do
     case turn_type do
       :first_turn -> first_turn(game_status)
       :bad_input -> bad_input(game_status)
-      :get_player_move -> do_turn(:get_player_move, game_status)
+      :get_player_move -> get_player_move(game_status)
       :continue -> print_board_and_return_status(game_status)
       :tile_already_selected -> tile_already_selected(game_status)
       :win -> win(game_status)
@@ -42,7 +42,7 @@ defmodule TicTacToe.UI do
     game_status
   end
 
-  def do_turn(:get_player_move, {_, board,_} = game_status) do
+  def get_player_move({_, board,_} = game_status) do
     board_size = Board.size(board)
     selection = get_tile_selection()
     
@@ -58,7 +58,7 @@ defmodule TicTacToe.UI do
     IO.puts @clear_screen
     IO.puts "Bad input. Player #{player}, please re-enter selection."
     print_board(game_status)
-    do_turn(:get_player_move, game_status)
+    get_player_move(game_status)
   end
 
   def first_turn(game_status) do
