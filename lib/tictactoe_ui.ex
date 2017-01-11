@@ -13,6 +13,12 @@ defmodule TicTacToe.UI do
     |> game_loop
   end
 
+  def do_turn_type(turn_type, game_status) do
+    case turn_type do
+      :bad_input -> do_turn(:bad_input, game_status)
+    end
+  end
+
   def get_move(game_status), do: do_turn(:get_player_move, game_status)
 
   def make_move(selected_tile, game_status), do: TicTacToe.make_move(selected_tile, game_status)
@@ -30,16 +36,21 @@ defmodule TicTacToe.UI do
   def do_turn(:get_player_move, {player_symbol, board,_} = game_status) do
     board_size = Board.size(board)
     selection = get_tile_selection()
-    player = Markers.get_player_marker(player_symbol)
+
     
     if selection == :bad_input or selection > board_size do
-      IO.puts @clear_screen
-      IO.puts "Bad input. Player #{player}, please re-enter selection."
-      print_board(game_status)
-      do_turn(:get_player_move, game_status)
+      do_turn(:bad_input, game_status)
     else
       make_move(selection, game_status)|> do_next_turn()
     end
+  end
+
+  def do_turn(:bad_input, {player_symbol, _, _}= game_status) do
+    player = Markers.get_player_marker(player_symbol)
+    IO.puts @clear_screen
+    IO.puts "Bad input. Player #{player}, please re-enter selection."
+    print_board(game_status)
+    do_turn(:get_player_move, game_status)
   end
 
   def do_turn(:first_turn, game_status) do
