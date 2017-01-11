@@ -1,7 +1,7 @@
 defmodule Board do
 
   def create do
-    {:x, [["1","2","3"],["4","5","6"],["7","8","9"]], :first_turn}
+    [["1","2","3"],["4","5","6"],["7","8","9"]]
   end
 
   def place_marker(selected_tile, {player_symbol, board, _}) do
