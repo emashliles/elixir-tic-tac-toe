@@ -7,7 +7,7 @@ defmodule Board do
   def place_marker(selected_tile, board, player_symbol) do
     new_board = replace_marker_in_board(board, selected_tile, player_symbol)
     turn_type = WinOrTieChecker.check_if_win_or_tie(new_board)
-    {player_symbol,new_board,turn_type}
+    new_board
   end
 
   def check_tile_not_taken(board, selected_tile) do

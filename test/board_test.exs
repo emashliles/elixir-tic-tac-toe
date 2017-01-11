@@ -9,7 +9,7 @@ defmodule BoardTests do
     board = Board.create
     changed_board = Board.place_marker(6, board, :x)
 
-    assert changed_board == {:x, [["1","2","3"],["4","5","X"],["7","8","9"]], :continue}
+    assert changed_board == [["1","2","3"],["4","5","X"],["7","8","9"]]
   end
 
   test "it can detect if a tile has already been taken" do

@@ -10,9 +10,9 @@ defmodule TicTacToe do
     if tile_taken == :tile_already_selected do
       next_game_status({player_symbol, board, :tile_already_selected})
     else
-      selected_tile
-      |> Board.place_marker(board, player_symbol) 
-      |> next_game_status()
+      new_board = Board.place_marker(selected_tile, board, player_symbol)
+      turn_type = WinOrTieChecker.check_if_win_or_tie(new_board)
+      next_game_status({player_symbol, new_board, turn_type})
     end
   end
 
