@@ -4,11 +4,11 @@ defmodule TicTacToe.UI do
 
   def start_game_loop, do: start_game |> game_loop
 
+  def game_loop({_,_,:game_over}), do: nil
   def game_loop(game_status) do
-    unless elem(game_status, 2) == :game_over do
-      get_move(game_status)
-      |> game_loop
-    end
+    game_status  
+    |> get_move()
+    |> game_loop
   end
 
   def start_game, do: TicTacToe.first_game_status |> do_next_turn
@@ -17,26 +17,26 @@ defmodule TicTacToe.UI do
 
   def make_move(selected_tile, game_status), do: TicTacToe.make_move(selected_tile, game_status)
 
-  def do_next_turn(game_status) do
+  def do_next_turn({_,_,turn_type} = game_status) do
     IO.puts @clear_screen
-
-    elem(game_status, 2)
-    |> do_turn(game_status)
+    do_turn(turn_type, game_status)
   end
 
-  defp print_board(game_status) do
-    elem(game_status, 1)
+  defp print_board({_, board, _}) do
+    board
     |> format_board()
     |> IO.write
+  end
 
+  def do_turn(:continue, game_status) do
+    print_board(game_status)
     game_status
   end
 
-  def do_turn(:continue, game_status), do: print_board(game_status)
-  def do_turn(:get_player_move, game_status) do
-    board_size = get_board_size(game_status)
+  def do_turn(:get_player_move, {player_symbol, board,_} = game_status) do
+    board_size = Board.size(board)
     selection = get_tile_selection()
-    player = get_marker_symbol(game_status)
+    player = Markers.get_player_marker(player_symbol)
     
     if selection == :bad_input or selection > board_size do
       IO.puts @clear_screen
@@ -56,6 +56,7 @@ defmodule TicTacToe.UI do
   def do_turn(:tile_already_selected, game_status) do
     IO.puts "Tile already selected. Please select a different tile."
     print_board(game_status)
+    game_status
   end
 
   def do_turn(:win, game_status) do
@@ -142,15 +143,7 @@ defmodule TicTacToe.UI do
 
   defp insert_new_lines_into_board(formatted_rows, []), do: formatted_rows
 
-  defp get_marker_symbol(game_status) do
-    elem(game_status, 0) |> Markers.get_player_marker()
-  end
-
-  defp get_board_size(game_status) do
-    elem(game_status, 1)
-    |> List.flatten()
-    |> length
-  end
+  defp get_marker_symbol({player_symbol, _,_}), do: Markers.get_player_marker(player_symbol)
 
   defp get_chars_in_each_row(board) do
     List.first(board)

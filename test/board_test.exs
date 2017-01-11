@@ -15,4 +15,9 @@ defmodule BoardTests do
   test "it can detect if a tile has already been taken" do
     assert Board.check_tile_not_taken([["1","2","3"],["4","5","X"],["7","8","9"]], 6) == :tile_already_selected
   end
+
+  test "it has a size" do
+    board = Board.create
+    assert Board.size(board) == 9 
+  end
 end

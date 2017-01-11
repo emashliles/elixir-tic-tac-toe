@@ -20,6 +20,12 @@ defmodule Board do
    end
   end
 
+  def size(board) do  
+    board
+    |> List.flatten()
+    |> length
+  end
+
   defp replace_marker_in_board(board,selected_tile,player_symbol) do
     marker_string = Markers.get_player_marker(player_symbol)
     index_selection = zero_index_selection(selected_tile)
