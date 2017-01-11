@@ -6,10 +6,10 @@ defmodule TicTacToe.UI do
 
   def start_game, do: TicTacToe.first_game_status |> do_next_turn
 
-  def game_loop({_,_,:game_over}), do: nil
+  def game_loop(:game_over), do: nil
   def game_loop(game_status) do
     game_status  
-    |> get_move()
+    |> get_move
     |> game_loop
   end
 
@@ -58,14 +58,14 @@ defmodule TicTacToe.UI do
     IO.puts "Player #{player_marker} has won the game."
     print_board(game_status)
     print_game_end_message
-    {1,2,:game_over}
+    :game_over
   end
 
   def do_turn(:tie, game_status) do
     IO.puts "This game is a tie."
     print_board(game_status)
     print_game_end_message
-    {:player,:board,:game_over}
+    :game_over
   end
 
   defp print_game_end_message, do: IO.puts "Goodbye."
