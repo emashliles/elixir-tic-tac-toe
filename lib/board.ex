@@ -5,9 +5,11 @@ defmodule Board do
   end
 
   def place_marker(selected_tile, board, player_symbol) do
-    new_board = replace_marker_in_board(board, selected_tile, player_symbol)
-    turn_type = WinOrTieChecker.check_if_win_or_tie(new_board)
-    new_board
+    marker_string = Markers.get_player_marker(player_symbol)
+    index_selection = zero_index_selection(selected_tile)
+    row_size = length(board)
+
+    do_replace_marker_in_board(board, index_selection, marker_string, row_size)
   end
 
   def check_tile_not_taken(board, selected_tile) do
@@ -26,15 +28,7 @@ defmodule Board do
     |> length
   end
 
-  defp replace_marker_in_board(board,selected_tile,player_symbol) do
-    marker_string = Markers.get_player_marker(player_symbol)
-    index_selection = zero_index_selection(selected_tile)
-    row_size = length(board)
-
-    do_replace_marker_in_board(board, index_selection, marker_string, row_size)
-  end
-
-  defp do_replace_marker_in_board(board, index_selection, marker_string,row_size) do
+  defp do_replace_marker_in_board(board, index_selection, marker_string, row_size) do
     List.flatten(board)
     |> List.replace_at(index_selection, marker_string)
     |> divide_board_into_rows(row_size)
