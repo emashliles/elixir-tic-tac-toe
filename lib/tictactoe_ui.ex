@@ -11,7 +11,7 @@ defmodule TicTacToe.UI do
     end
   end
 
-  def start_game, do: TicTacToe.create_game_status |> do_next_turn
+  def start_game, do: TicTacToe.first_game_status |> do_next_turn
   
   def get_move(game_status), do: do_turn(:get_player_move, game_status)
 
