@@ -14,18 +14,23 @@ defmodule TicTacToe.UI do
   end
 
   def do_turn_type(turn_type, game_status) do
+    IO.puts @clear_screen
+    #print_board(game_status)
+
     case turn_type do
+      :first_turn -> do_turn(:first_turn, game_status)
       :bad_input -> do_turn(:bad_input, game_status)
+      :get_player_move -> do_turn(:get_player_move, game_status)
+      _ -> do_turn(turn_type, game_status)
     end
   end
 
-  def get_move(game_status), do: do_turn(:get_player_move, game_status)
+  def get_move(game_status), do: do_turn_type(:get_player_move, game_status)
 
   def make_move(selected_tile, game_status), do: TicTacToe.make_move(selected_tile, game_status)
 
   def do_next_turn({_,_,turn_type} = game_status) do
-    IO.puts @clear_screen
-    do_turn(turn_type, game_status)
+    do_turn_type(turn_type, game_status)
   end
 
   def do_turn(:continue, game_status) do
@@ -36,10 +41,9 @@ defmodule TicTacToe.UI do
   def do_turn(:get_player_move, {player_symbol, board,_} = game_status) do
     board_size = Board.size(board)
     selection = get_tile_selection()
-
     
     if selection == :bad_input or selection > board_size do
-      do_turn(:bad_input, game_status)
+      do_turn_type(:bad_input, game_status)
     else
       make_move(selection, game_status)|> do_next_turn()
     end
