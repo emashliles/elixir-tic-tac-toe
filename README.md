@@ -1,6 +1,6 @@
 # Elixir Tic Tac Toe
 
-![build-status]https://travis-ci.org/emashliles/elixir-tic-tac-toe.svg?branch=master
+[![Build Status](https://travis-ci.org/emashliles/elixir-tic-tac-toe.svg?branch=master)](https://travis-ci.org/emashliles/elixir-tic-tac-toe)
 
 ## Running the game
 
