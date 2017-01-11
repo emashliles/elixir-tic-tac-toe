@@ -21,7 +21,11 @@ defmodule TicTacToe.UI do
       :first_turn -> do_turn(:first_turn, game_status)
       :bad_input -> do_turn(:bad_input, game_status)
       :get_player_move -> do_turn(:get_player_move, game_status)
-      _ -> do_turn(turn_type, game_status)
+      :continue -> do_turn(:continue, game_status)
+      :tile_already_selected -> do_turn(:tile_already_selected, game_status)
+      :win -> do_turn(:win, game_status)
+      :tie -> do_turn(:tie, game_status)
+      _ -> raise "turn type not found"
     end
   end
 
@@ -38,7 +42,7 @@ defmodule TicTacToe.UI do
     game_status
   end
 
-  def do_turn(:get_player_move, {player_symbol, board,_} = game_status) do
+  def do_turn(:get_player_move, {_, board,_} = game_status) do
     board_size = Board.size(board)
     selection = get_tile_selection()
     
