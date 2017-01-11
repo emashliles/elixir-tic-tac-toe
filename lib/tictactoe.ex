@@ -4,14 +4,14 @@ defmodule TicTacToe do
     {:x, Board.create, :first_turn}
   end
 
-  def make_move(selected_tile, {player_symbol, board, _} = game_status) do
+  def make_move(selected_tile, {player_symbol, board, _}) do
     tile_taken = Board.check_tile_not_taken(board, selected_tile)
 
     if tile_taken == :tile_already_selected do
       next_game_status({player_symbol, board, :tile_already_selected})
     else
       selected_tile
-      |> Board.place_marker(game_status) 
+      |> Board.place_marker(board, player_symbol) 
       |> next_game_status()
     end
   end

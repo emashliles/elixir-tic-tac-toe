@@ -4,8 +4,10 @@ defmodule Board do
     [["1","2","3"],["4","5","6"],["7","8","9"]]
   end
 
-  def place_marker(selected_tile, {player_symbol, board, _}) do
-    create_next_game_status(board, player_symbol, selected_tile)
+  def place_marker(selected_tile, board, player_symbol) do
+    new_board = replace_marker_in_board(board, selected_tile, player_symbol)
+    turn_type = WinOrTieChecker.check_if_win_or_tie(new_board)
+    {player_symbol,new_board,turn_type}
   end
 
   def check_tile_not_taken(board, selected_tile) do
@@ -16,12 +18,6 @@ defmodule Board do
    else
      :continue
    end
-  end
-
-  defp create_next_game_status(board, player_symbol, selected_tile) do
-    new_board = replace_marker_in_board(board, selected_tile, player_symbol)
-    turn_type = WinOrTieChecker.check_if_win_or_tie(new_board)
-    {player_symbol,new_board,turn_type}
   end
 
   defp replace_marker_in_board(board,selected_tile,player_symbol) do

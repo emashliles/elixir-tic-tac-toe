@@ -7,7 +7,7 @@ defmodule BoardTests do
 
   test "can place a marker on the bord" do
     board = Board.create
-    changed_board = Board.place_marker(6,{:x, board, :continue})
+    changed_board = Board.place_marker(6, board, :x)
 
     assert changed_board == {:x, [["1","2","3"],["4","5","X"],["7","8","9"]], :continue}
   end
