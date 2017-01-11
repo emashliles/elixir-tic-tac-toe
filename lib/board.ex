@@ -15,11 +15,12 @@ defmodule Board do
   def check_tile_not_taken(board, selected_tile) do
     selection_value = get_value_of_selected_tile(zero_index_selection(selected_tile), board)
 
-   if Enum.member?(get_all_marker_values,selection_value) do
+   if Enum.member?(Markers.get_all_markers,selection_value) do
      :tile_already_selected
    else
      :continue
    end
+
   end
 
   def size(board) do  
@@ -38,8 +39,6 @@ defmodule Board do
     List.flatten(board)
     |> Enum.at(selected_tile)
   end
-
-  defp get_all_marker_values(), do: Markers.get_all_markers()
 
   defp zero_index_selection(selected_tile), do: selected_tile - 1
 
