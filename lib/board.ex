@@ -21,7 +21,7 @@ defmodule Board do
   end
 
   defp replace_marker_in_board(board,selected_tile,player_symbol) do
-    marker_string = get_marker_symbol(player_symbol)
+    marker_string = Markers.get_player_marker(player_symbol)
     index_selection = zero_index_selection(selected_tile)
     row_size = length(board)
 
@@ -38,8 +38,6 @@ defmodule Board do
     List.flatten(board)
     |> Enum.at(selected_tile)
   end
-
-  defp get_marker_symbol(player_symbol), do: Markers.get_player_marker(player_symbol)
 
   defp get_all_marker_values(), do: Markers.get_all_markers()
 
