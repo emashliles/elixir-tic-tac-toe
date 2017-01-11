@@ -18,13 +18,13 @@ defmodule TicTacToe.UI do
     #print_board(game_status)
 
     case turn_type do
-      :first_turn -> do_turn(:first_turn, game_status)
-      :bad_input -> do_turn(:bad_input, game_status)
+      :first_turn -> first_turn(game_status)
+      :bad_input -> bad_input(game_status)
       :get_player_move -> do_turn(:get_player_move, game_status)
-      :continue -> do_turn(:continue, game_status)
-      :tile_already_selected -> do_turn(:tile_already_selected, game_status)
-      :win -> do_turn(:win, game_status)
-      :tie -> do_turn(:tie, game_status)
+      :continue -> print_board_and_return_status(game_status)
+      :tile_already_selected -> tile_already_selected(game_status)
+      :win -> win(game_status)
+      :tie -> tie(game_status)
       _ -> raise "turn type not found"
     end
   end
@@ -37,7 +37,7 @@ defmodule TicTacToe.UI do
     do_turn_type(turn_type, game_status)
   end
 
-  def do_turn(:continue, game_status) do
+  def print_board_and_return_status(game_status) do
     print_board(game_status)
     game_status
   end
@@ -53,7 +53,7 @@ defmodule TicTacToe.UI do
     end
   end
 
-  def do_turn(:bad_input, {player_symbol, _, _}= game_status) do
+  def bad_input({player_symbol, _, _}= game_status) do
     player = Markers.get_player_marker(player_symbol)
     IO.puts @clear_screen
     IO.puts "Bad input. Player #{player}, please re-enter selection."
@@ -61,18 +61,18 @@ defmodule TicTacToe.UI do
     do_turn(:get_player_move, game_status)
   end
 
-  def do_turn(:first_turn, game_status) do
+  def first_turn(game_status) do
     print_board(game_status)
     game_status
   end
 
-  def do_turn(:tile_already_selected, game_status) do
+  def tile_already_selected(game_status) do
     IO.puts "Tile already selected. Please select a different tile."
     print_board(game_status)
     game_status
   end
 
-  def do_turn(:win, game_status) do
+  def win(game_status) do
     player_marker = get_marker_symbol(game_status)
     IO.puts "Player #{player_marker} has won the game."
     print_board(game_status)
@@ -80,7 +80,7 @@ defmodule TicTacToe.UI do
     :game_over
   end
 
-  def do_turn(:tie, game_status) do
+  def tie(game_status) do
     IO.puts "This game is a tie."
     print_board(game_status)
     print_game_end_message
