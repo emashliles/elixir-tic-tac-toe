@@ -1,6 +1,6 @@
 defmodule WinOrTieChecker do
 
-  def check_if_win_or_tie(board) do
+  def evaluate(board) do
     check_for_winning_row(0,board)
     |> check_for_winning_columns(board, 0)
     |> check_for_winning_diagonal(board, 0, 1)

@@ -117,8 +117,7 @@ defmodule TicTacToe.UI do
   end
 
   defp add_spaces([], accumulator), do: accumulator
-
-  defp add_spaces([head|tail], accumulator) do
+  defp add_spaces([head | tail], accumulator) do
     spaced_row = pad(head) 
     list = List.insert_at(accumulator, 100, spaced_row)
     add_spaces(tail, list)

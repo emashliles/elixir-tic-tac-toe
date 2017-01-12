@@ -11,7 +11,7 @@ defmodule TicTacToe do
       next_game_status({player_symbol, board, :space_already_selected})
     else
       new_board = Board.place_marker(selected_space, board, player_symbol)
-      turn_type = WinOrTieChecker.check_if_win_or_tie(new_board)
+      turn_type = WinOrTieChecker.evaluate(new_board)
       next_game_status({player_symbol, new_board, turn_type})
     end
   end
