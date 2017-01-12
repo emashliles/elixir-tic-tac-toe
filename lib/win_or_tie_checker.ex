@@ -4,7 +4,7 @@ defmodule WinOrTieChecker do
     check_for_winning_row(0,board)
     |> check_for_winning_columns(board, 0)
     |> check_for_winning_diagonal(board, 0, 1)
-    |> check_for_winning_diagonal(board, (length(board)- 1),-1)
+    |> check_for_winning_diagonal(board, (length(board)- 1), -1)
     |> check_for_tied_board(board)
   end
 
@@ -27,12 +27,12 @@ defmodule WinOrTieChecker do
   end
 
   defp check_for_winning_column(:win, _, _), do: :win
-  defp check_for_winning_column(:continue,board, column_index) do
-    get_value_from_column(column_index,board,[])    
+  defp check_for_winning_column(:continue, board, column_index) do
+    get_value_from_column(column_index, board, [])    
   end
 
   defp get_value_from_column(column_index, [head | tail], column_values) do
-    value = Enum.at(head,column_index)
+    value = Enum.at(head, column_index)
     modified_column_values = [value] ++ column_values
     get_value_from_column(column_index, tail, modified_column_values)
   end
