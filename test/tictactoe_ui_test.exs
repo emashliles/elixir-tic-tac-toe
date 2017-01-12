@@ -2,15 +2,15 @@ defmodule TicTacToe.UI.Test do
   use ExUnit.Case
   import ExUnit.CaptureIO
 
-  test "can print the board" do
+  test "prints the board" do
     assert capture_io(fn -> TicTacToe.UI.start_game() end) == "\e[H\e[2J\n 1 | 2 | 3 \n===========\n 4 | 5 | 6 \n===========\n 7 | 8 | 9 \n"
   end
   
-  test "can print the board after player one input" do
+  test "prints the board after player one input" do
     assert capture_io([input: "1"],fn ->  TicTacToe.UI.get_move({:x,[["1","2","3"],["4","5","6"],["7","8","9"]], :continue})end) == "\e[H\e[2J\nPlease enter a tile selection: \e[H\e[2J\n X | 2 | 3 \n===========\n 4 | 5 | 6 \n===========\n 7 | 8 | 9 \n"  
   end
 
-  test "can print the board after player two input" do
+  test "prints the board after player two input" do
     assert capture_io([input: "2"],fn ->  TicTacToe.UI.get_move({:o,[["X","2","3"],["4","5","6"],["7","8","9"]], :continue})end) == "\e[H\e[2J\nPlease enter a tile selection: \e[H\e[2J\n X | O | 3 \n===========\n 4 | 5 | 6 \n===========\n 7 | 8 | 9 \n"  
   end
 
@@ -48,5 +48,3 @@ defmodule TicTacToe.UI.Test do
     assert String.contains?(game_output,"Bad input. Player X, please re-enter selection.\n O | O | X \n===========\n X | 5 | O \n===========\n O | X | O \n")
   end
 end
-
- 

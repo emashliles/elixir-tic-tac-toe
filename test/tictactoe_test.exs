@@ -2,7 +2,7 @@ defmodule TicTacToeTest do
   use ExUnit.Case
   doctest TicTacToe
 
-  test "it can retrun and empty game status" do
+  test "TTT can return and empty game status" do
     assert TicTacToe.first_game_status() == {:x, [["1","2","3"],["4","5","6"],["7","8","9"]], :first_turn}
   end
 
@@ -18,7 +18,7 @@ defmodule TicTacToeTest do
     assert TicTacToe.make_move(1, {:x, [["1","2","3"],["4","5","6"],["7","8","9"]], :continue}) == {:o, [["X","2","3"],["4","5","6"],["7","8","9"]], :continue} 
   end
   
-  test "a different player can select a tile" do
+  test "different player can select a tile" do
     assert TicTacToe.make_move(1, {:o, [["1","2","3"],["4","X","6"],["7","8","9"]], :continue}) == {:x, [["O","2","3"],["4","X","6"],["7","8","9"]], :continue}
   end
 

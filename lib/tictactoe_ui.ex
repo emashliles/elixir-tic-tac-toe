@@ -15,7 +15,6 @@ defmodule TicTacToe.UI do
 
   def do_turn_type(turn_type, game_status) do
     IO.puts @clear_screen
-    #print_board(game_status)
 
     case turn_type do
       :first_turn -> first_turn(game_status)
