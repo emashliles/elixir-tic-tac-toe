@@ -7,13 +7,13 @@ defmodule BoardTests do
 
   test "can place a marker on the bord" do
     board = Board.create
-    changed_board = Board.place_marker(6, board, :x)
+    changed_board = Board.place_marker(5, board, :x)
 
     assert changed_board == [["1","2","3"],["4","5","X"],["7","8","9"]]
   end
 
   test "can detect if a space has already been taken" do
-    assert Board.check_space_not_taken([["1","2","3"],["4","5","X"],["7","8","9"]], 6) == :space_already_selected
+    assert Board.check_space_not_taken([["1","2","3"],["4","5","X"],["7","8","9"]], 5) == :space_already_selected
   end
 
   test "board has a size" do

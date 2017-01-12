@@ -46,7 +46,9 @@ defmodule TicTacToe.UI do
     if selection == :bad_input or selection > board_size do
       do_turn_type(:bad_input, game_status)
     else
-      TicTacToe.make_move(selection, game_status) |>  do_next_turn()
+      selection
+      |> zero_index_selection
+      |> TicTacToe.make_move(game_status) |>  do_next_turn()
     end
   end
 
@@ -108,6 +110,8 @@ defmodule TicTacToe.UI do
     end
   end
 
+  defp zero_index_selection(selected_space), do: selected_space - 1
+  
   def format_board(board) do
     board
     |> add_spaces([])
