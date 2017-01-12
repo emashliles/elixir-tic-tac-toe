@@ -21,7 +21,7 @@ defmodule Board do
     end
   end
 
-  def size(board) do  
+  def size(board) do
     board
     |> List.flatten()
     |> length
@@ -39,5 +39,4 @@ defmodule Board do
   end
 
   defp divide_board_into_rows(board, row_size), do: Enum.chunk(board, row_size)
-  
 end

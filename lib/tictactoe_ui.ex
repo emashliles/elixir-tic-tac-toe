@@ -8,7 +8,7 @@ defmodule TicTacToe.UI do
 
   def game_loop(:game_over), do: nil
   def game_loop(game_status) do
-    game_status  
+    game_status
     |> get_move
     |> game_loop
   end
@@ -42,7 +42,7 @@ defmodule TicTacToe.UI do
   def get_player_move({_, board,_} = game_status) do
     board_size = Board.size(board)
     selection = get_space_selection()
-    
+
     if selection == :bad_input or selection > board_size do
       do_turn_type(:bad_input, game_status)
     else
@@ -65,8 +65,8 @@ defmodule TicTacToe.UI do
     game_status
   end
 
-  def win(game_status) do
-    player_marker = get_marker_symbol(game_status)
+  def win({player_symbol, _, _}=game_status) do
+    player_marker = Markers.from_player_symbol(player_symbol)
     IO.puts "Player #{player_marker} has won the game."
     print_board(game_status)
     print_game_end_message
@@ -108,7 +108,7 @@ defmodule TicTacToe.UI do
       selection
     end
   end
-  
+
   def format_board(board) do
     board
     |> add_spaces([])
@@ -119,7 +119,7 @@ defmodule TicTacToe.UI do
 
   defp add_spaces([], accumulator), do: accumulator
   defp add_spaces([head | tail], accumulator) do
-    spaced_row = pad(head) 
+    spaced_row = pad(head)
     list = List.insert_at(accumulator, 100, spaced_row)
     add_spaces(tail, list)
   end
@@ -133,7 +133,6 @@ defmodule TicTacToe.UI do
   end
 
   defp add_lines([], accumulator), do: accumulator
-
   defp add_lines([head | tail], accumulator) do
     lined_row = accumulator ++  [Enum.intersperse(head, "|")]
     add_lines(tail, lined_row)
@@ -145,14 +144,11 @@ defmodule TicTacToe.UI do
     Enum.intersperse(board, [separator])
   end
 
+  defp insert_new_lines([], accumulator), do: accumulator
   defp insert_new_lines([head | tail], accumulator) do
-    row_with_newline = List.insert_at(accumulator, -1,  head ++ ["\n"]) 
+    row_with_newline = List.insert_at(accumulator, -1,  head ++ ["\n"])
     insert_new_lines(tail, row_with_newline)
   end
-
-  defp insert_new_lines([], accumulator), do: accumulator
-
-  defp get_marker_symbol({player_symbol, _,_}), do: Markers.from_player_symbol(player_symbol)
 
   defp get_chars_in_each_row(board) do
     List.first(board)
