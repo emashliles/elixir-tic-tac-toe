@@ -17,7 +17,7 @@ defmodule TicTacToe.UI do
     IO.puts @clear_screen
 
     case turn_type do
-      :first_turn -> first_turn(game_status)
+      :first_turn -> print_board_and_return_status(game_status)
       :bad_input -> bad_input(game_status)
       :get_player_move -> get_player_move(game_status)
       :continue -> print_board_and_return_status(game_status)
@@ -29,8 +29,6 @@ defmodule TicTacToe.UI do
   end
 
   def get_move(game_status), do: do_turn_type(:get_player_move, game_status)
-
-  def make_move(selected_space, game_status), do: TicTacToe.make_move(selected_space, game_status)
 
   def do_next_turn({_,_,turn_type} = game_status) do
     do_turn_type(turn_type, game_status)
@@ -48,7 +46,7 @@ defmodule TicTacToe.UI do
     if selection == :bad_input or selection > board_size do
       do_turn_type(:bad_input, game_status)
     else
-      make_move(selection, game_status)|> do_next_turn()
+      TicTacToe.make_move(selection, game_status) |>  do_next_turn()
     end
   end
 
@@ -58,11 +56,6 @@ defmodule TicTacToe.UI do
     IO.puts "Bad input. Player #{player}, please re-enter selection."
     print_board(game_status)
     get_player_move(game_status)
-  end
-
-  def first_turn(game_status) do
-    print_board(game_status)
-    game_status
   end
 
   def space_already_selected(game_status) do
@@ -127,7 +120,6 @@ defmodule TicTacToe.UI do
 
   defp add_spaces([head|tail], accumulator) do
     spaced_row = pad(head) 
-    #leading_spaced_row = add_spaces_to_spaces_leading(spaced_row)
     list = List.insert_at(accumulator, 100, spaced_row)
     add_spaces(tail, list)
   end
