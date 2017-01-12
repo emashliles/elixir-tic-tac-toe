@@ -126,21 +126,17 @@ defmodule TicTacToe.UI do
   defp add_spaces([], accumulator), do: accumulator
 
   defp add_spaces([head|tail], accumulator) do
-    spaced_row = add_spaces_to_spaces_trailing(head)
-    leading_spaced_row = add_spaces_to_spaces_leading(spaced_row)
-    list = List.insert_at(accumulator, 100, leading_spaced_row)
+    spaced_row = pad(head) 
+    #leading_spaced_row = add_spaces_to_spaces_leading(spaced_row)
+    list = List.insert_at(accumulator, 100, spaced_row)
     add_spaces(tail, list)
   end
 
-  defp add_spaces_to_spaces_trailing(row) do
-    Enum.map(row, fn(value) -> 
-      String.pad_trailing(value, 2)
-    end)
-  end
-
-  defp add_spaces_to_spaces_leading(row) do
-    Enum.map(row, fn(value) -> 
-      String.pad_leading(value, 3)
+  defp pad(row) do
+    Enum.map(row, fn(value) ->
+      value
+      |> String.pad_trailing(2)
+      |> String.pad_leading(3)
     end)
   end
 
