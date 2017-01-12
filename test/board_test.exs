@@ -20,4 +20,5 @@ defmodule BoardTests do
     board = Board.create
     assert Board.size(board) == 9 
   end
+
 end

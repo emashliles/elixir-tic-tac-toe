@@ -39,5 +39,5 @@ defmodule Board do
   end
 
   defp divide_board_into_rows(board, row_size), do: Enum.chunk(board, row_size)
-
+  
 end
