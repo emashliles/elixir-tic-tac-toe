@@ -2,10 +2,10 @@ defmodule MarkersTests do
   use ExUnit.Case
 
   test "can find a list of all the available markers" do
-    assert Markers.get_all_markers == ["X","O"]
+    assert Markers.all == ["X","O"]
   end
 
   test "can find marker for a given player" do
-    assert Markers.get_player_marker(:x) == "X"
+    assert Markers.from_player_symbol(:x) == "X"
   end
 end

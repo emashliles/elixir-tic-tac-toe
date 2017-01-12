@@ -52,7 +52,7 @@ defmodule TicTacToe.UI do
   end
 
   def bad_input({player_symbol, _, _}= game_status) do
-    player = Markers.get_player_marker(player_symbol)
+    player = Markers.from_player_symbol(player_symbol)
     IO.puts @clear_screen
     IO.puts "Bad input. Player #{player}, please re-enter selection."
     print_board(game_status)
@@ -152,7 +152,7 @@ defmodule TicTacToe.UI do
 
   defp insert_new_lines([], accumulator), do: accumulator
 
-  defp get_marker_symbol({player_symbol, _,_}), do: Markers.get_player_marker(player_symbol)
+  defp get_marker_symbol({player_symbol, _,_}), do: Markers.from_player_symbol(player_symbol)
 
   defp get_chars_in_each_row(board) do
     List.first(board)

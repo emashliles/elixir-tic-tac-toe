@@ -2,7 +2,8 @@ defmodule Markers do
  
   @markers [{:x, "X"},{:o, "O"}]
 
-  def get_all_markers, do: Keyword.values(@markers)
+  def all, do: Keyword.values(@markers)
 
-  def get_player_marker(player_symbol), do: @markers[player_symbol]
+  def from_player_symbol(player_symbol), do: @markers[player_symbol]
+
 end

@@ -5,7 +5,7 @@ defmodule Board do
   end
 
   def place_marker(selected_space, board, player_symbol) do
-    marker_string = Markers.get_player_marker(player_symbol)
+    marker_string = Markers.from_player_symbol(player_symbol)
     row_size = length(board)
 
     do_replace_marker_in_board(board, selected_space, marker_string, row_size)
@@ -14,7 +14,7 @@ defmodule Board do
   def check_space_not_taken(board, selected_space) do
     selection_value = get_value_of_selected_space(selected_space, board)
 
-    if Enum.member?(Markers.get_all_markers,selection_value) do
+    if Enum.member?(Markers.all,selection_value) do
       :space_already_selected
     else
       :continue
