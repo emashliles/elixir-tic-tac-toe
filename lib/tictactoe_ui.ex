@@ -21,7 +21,7 @@ defmodule TicTacToe.UI do
       :bad_input -> bad_input(game_status)
       :get_player_move -> get_player_move(game_status)
       :continue -> print_board_and_return_status(game_status)
-      :tile_already_selected -> tile_already_selected(game_status)
+      :space_already_selected -> space_already_selected(game_status)
       :win -> win(game_status)
       :tie -> tie(game_status)
       _ -> raise "turn type not found"
@@ -30,7 +30,7 @@ defmodule TicTacToe.UI do
 
   def get_move(game_status), do: do_turn_type(:get_player_move, game_status)
 
-  def make_move(selected_tile, game_status), do: TicTacToe.make_move(selected_tile, game_status)
+  def make_move(selected_space, game_status), do: TicTacToe.make_move(selected_space, game_status)
 
   def do_next_turn({_,_,turn_type} = game_status) do
     do_turn_type(turn_type, game_status)
@@ -43,7 +43,7 @@ defmodule TicTacToe.UI do
 
   def get_player_move({_, board,_} = game_status) do
     board_size = Board.size(board)
-    selection = get_tile_selection()
+    selection = get_space_selection()
     
     if selection == :bad_input or selection > board_size do
       do_turn_type(:bad_input, game_status)
@@ -65,8 +65,8 @@ defmodule TicTacToe.UI do
     game_status
   end
 
-  def tile_already_selected(game_status) do
-    IO.puts "Tile already selected. Please select a different tile."
+  def space_already_selected(game_status) do
+    IO.puts "Space already selected. Please select a different space."
     print_board(game_status)
     game_status
   end
@@ -94,9 +94,9 @@ defmodule TicTacToe.UI do
     |> IO.write
   end
 
-  defp get_tile_selection, do: IO.gets("Please enter a tile selection: ")|> check_tile_selection()
+  defp get_space_selection, do: IO.gets("Please enter a space selection: ")|> check_space_selection()
 
-  def check_tile_selection(selection) do
+  def check_space_selection(selection) do
     try do
       String.trim(selection)
       |> String.to_integer()
@@ -126,19 +126,19 @@ defmodule TicTacToe.UI do
   defp add_spaces([], accumulator), do: accumulator
 
   defp add_spaces([head|tail], accumulator) do
-    spaced_row = add_spaces_to_tiles_trailing(head)
-    leading_spaced_row = add_spaces_to_tiles_leading(spaced_row)
+    spaced_row = add_spaces_to_spaces_trailing(head)
+    leading_spaced_row = add_spaces_to_spaces_leading(spaced_row)
     list = List.insert_at(accumulator, 100, leading_spaced_row)
     add_spaces(tail, list)
   end
 
-  defp add_spaces_to_tiles_trailing(row) do
+  defp add_spaces_to_spaces_trailing(row) do
     Enum.map(row, fn(value) -> 
       String.pad_trailing(value, 2)
     end)
   end
 
-  defp add_spaces_to_tiles_leading(row) do
+  defp add_spaces_to_spaces_leading(row) do
     Enum.map(row, fn(value) -> 
       String.pad_leading(value, 3)
     end)

@@ -12,8 +12,8 @@ defmodule BoardTests do
     assert changed_board == [["1","2","3"],["4","5","X"],["7","8","9"]]
   end
 
-  test "can detect if a tile has already been taken" do
-    assert Board.check_tile_not_taken([["1","2","3"],["4","5","X"],["7","8","9"]], 6) == :tile_already_selected
+  test "can detect if a space has already been taken" do
+    assert Board.check_space_not_taken([["1","2","3"],["4","5","X"],["7","8","9"]], 6) == :space_already_selected
   end
 
   test "board has a size" do

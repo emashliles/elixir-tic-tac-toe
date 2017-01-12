@@ -48,10 +48,10 @@ defmodule WinOrTieChecker do
 
   defp check_for_winning_diagonal(:win, _, _, _), do: :win
   defp check_for_winning_diagonal(:continue, [head|tail], starting_element, next_square) do
-    Enum.at(head,starting_element) |> check_diagonal_tiles(tail, starting_element, next_square)
+    Enum.at(head,starting_element) |> check_diagonal_spaces(tail, starting_element, next_square)
   end
 
-  defp check_diagonal_tiles(previous_element_value, [head | tail], element_to_check, next_square) do
+  defp check_diagonal_spaces(previous_element_value, [head | tail], element_to_check, next_square) do
     modified_element_to_check = next_square + element_to_check
 
     Enum.at(head,modified_element_to_check)
@@ -60,7 +60,7 @@ defmodule WinOrTieChecker do
   end
 
   defp continue_diagonal_search?(true, _, [], _, _), do: :win
-  defp continue_diagonal_search?(true, previous_element_value, remaining_rows, element_to_check, next_square), do: check_diagonal_tiles(previous_element_value, remaining_rows, element_to_check, next_square)
+  defp continue_diagonal_search?(true, previous_element_value, remaining_rows, element_to_check, next_square), do: check_diagonal_spaces(previous_element_value, remaining_rows, element_to_check, next_square)
   defp continue_diagonal_search?(false, previous_element_value, remaining_rows, element_to_check, _), do: :continue
   defp continue_diagonal_search?(false, _previous_element_value, [], _element_to_check), do: :continue
 
