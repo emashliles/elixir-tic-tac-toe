@@ -44,7 +44,7 @@ defmodule WinOrTieChecker do
   end
 
   defp column_is_win(1,_,_ ), do: :win
-  defp column_is_win(amount_of_values, column_index, _), do: :continue
+  defp column_is_win(_, _, _), do: :continue
 
   defp check_for_winning_diagonal(:win, _, _, _), do: :win
   defp check_for_winning_diagonal(:continue, [head|tail], starting_element, next_square) do
@@ -61,8 +61,7 @@ defmodule WinOrTieChecker do
 
   defp continue_diagonal_search?(true, _, [], _, _), do: :win
   defp continue_diagonal_search?(true, previous_element_value, remaining_rows, element_to_check, next_square), do: check_diagonal_spaces(previous_element_value, remaining_rows, element_to_check, next_square)
-  defp continue_diagonal_search?(false, previous_element_value, remaining_rows, element_to_check, _), do: :continue
-  defp continue_diagonal_search?(false, _previous_element_value, [], _element_to_check), do: :continue
+  defp continue_diagonal_search?(false, _, _, _, _), do: :continue
 
   defp check_for_tied_board(:win, _), do: :win
   defp check_for_tied_board(:continue, board) do
