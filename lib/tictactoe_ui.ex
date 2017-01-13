@@ -4,78 +4,76 @@ defmodule TicTacToe.UI do
 
   def start_game_loop, do: start_game |> game_loop
 
-  def start_game, do: TicTacToe.first_game_status |> do_next_turn
+  def start_game do 
+    status = TicTacToe.first_game_status
+    IO.puts @clear_screen
+    print_board(status)
+    status
+  end
 
   def game_loop(:game_over), do: nil
   def game_loop(game_status) do
     game_status
-    |> get_move
+    |> do_turn
     |> game_loop
   end
 
+  def do_turn(game_status) do
+    game_status
+    |> get_player_move
+    |> do_turn_type
+  end
+
+
+  def do_turn_type(:game_over), do: :game_over
+  def do_turn_type( {_,_,turn} = game_status), do: do_turn_type(turn, game_status)
+  def do_turn_type({turn_type, game_status}), do: do_turn_type(turn_type, game_status)
   def do_turn_type(turn_type, game_status) do
     IO.puts @clear_screen
+    print_board(game_status)
 
     case turn_type do
-      :first_turn -> print_board_and_return_status(game_status)
-      :bad_input -> bad_input(game_status)
       :get_player_move -> get_player_move(game_status)
-      :continue -> print_board_and_return_status(game_status)
+      :continue -> game_status
       :space_already_selected -> space_already_selected(game_status)
       :win -> win(game_status)
-      :tie -> tie(game_status)
+      :tie -> tie()
+      :bad_input -> bad_input(game_status)
       _ -> raise "turn type not found"
     end
   end
 
-  def get_move(game_status), do: do_turn_type(:get_player_move, game_status)
-
-  def do_next_turn({_,_,turn_type} = game_status) do
-    do_turn_type(turn_type, game_status)
-  end
-
-  def print_board_and_return_status(game_status) do
-    print_board(game_status)
-    game_status
-  end
-
   def get_player_move({_, board,_} = game_status) do
-    board_size = Board.size(board)
     selection = get_space_selection()
 
-    if selection == :bad_input or selection > board_size do
-      do_turn_type(:bad_input, game_status)
+    if selection == :bad_input or selection > Board.size(board) do
+      {:bad_input, game_status}
     else
-      selection - 1
-      |> TicTacToe.make_move(game_status) |>  do_next_turn()
+      status = TicTacToe.make_move(selection - 1, game_status) 
+      status
     end
   end
 
   def bad_input({player_symbol, _, _}= game_status) do
     player = Markers.from_player_symbol(player_symbol)
-    IO.puts @clear_screen
     IO.puts "Bad input. Player #{player}, please re-enter selection."
-    print_board(game_status)
-    get_player_move(game_status)
+    game_status
   end
 
   def space_already_selected(game_status) do
     IO.puts "Space already selected. Please select a different space."
-    print_board(game_status)
     game_status
   end
 
-  def win({player_symbol, _, _}=game_status) do
+  def win({player_symbol, _, _}) do
     player_marker = Markers.from_player_symbol(player_symbol)
     IO.puts "Player #{player_marker} has won the game."
-    print_board(game_status)
     print_game_end_message
     :game_over
   end
 
-  def tie(game_status) do
+  def tie() do
     IO.puts "This game is a tie."
-    print_board(game_status)
     print_game_end_message
     :game_over
   end
