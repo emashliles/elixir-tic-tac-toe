@@ -11,7 +11,11 @@ defmodule TicTacToe.UI do
     status
   end
 
-  def game_loop(:game_over), do: nil
+  def game_loop(:game_over) do
+    if replay? do
+      start_game_loop
+    end
+  end
   def game_loop(game_status) do
     game_status
     |> do_turn
@@ -24,9 +28,7 @@ defmodule TicTacToe.UI do
     |> do_turn_type
   end
 
-
-  def do_turn_type(:game_over), do: :game_over
-  def do_turn_type( {_,_,turn} = game_status), do: do_turn_type(turn, game_status)
+  def do_turn_type({_,_,turn} = game_status), do: do_turn_type(turn, game_status)
   def do_turn_type({turn_type, game_status}), do: do_turn_type(turn_type, game_status)
   def do_turn_type(turn_type, game_status) do
     IO.puts @clear_screen
@@ -68,17 +70,25 @@ defmodule TicTacToe.UI do
   def win({player_symbol, _, _}) do
     player_marker = Markers.from_player_symbol(player_symbol)
     IO.puts "Player #{player_marker} has won the game."
-    print_game_end_message
     :game_over
   end
 
-  def tie() do
+  def tie do
     IO.puts "This game is a tie."
-    print_game_end_message
     :game_over
   end
 
-  defp print_game_end_message, do: IO.puts "Goodbye."
+  def replay? do
+    replay_option = IO.gets("Play again? y/n\n")
+    
+    case String.trim(replay_option) do 
+      "n" -> 
+        IO.puts("Goodbye")
+        false
+      "y" -> true
+      _ -> replay?
+    end
+  end
 
   defp print_board({_, board, _}) do
     board
