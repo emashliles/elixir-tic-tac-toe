@@ -6,10 +6,11 @@
 
    You can run the game using the mix task included. 
 
-    ```
-    mix compile
-    mix tic_tac_toe
-    ```
+```
+mix compile
+mix tic_tac_toe
+```
+    
 
 ## Run the tests continuously
 
