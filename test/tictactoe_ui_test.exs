@@ -26,10 +26,6 @@ defmodule TicTacToe.UI.Test do
     assert capture_io([input: "5"],fn ->  TicTacToe.UI.do_turn({:x,[["O","O","X"],["X","5","O"],["O","X","O"]]  , :continue})end) == "Please enter a space selection: \e[H\e[2J\n O | O | X \n===========\n X | X | O \n===========\n O | X | O \nThis game is a tie.\n"
   end
 
-  test "formats the board" do
-    assert TicTacToe.UI.format_board([["1","2","3"], ["4","5","6"], ["7","8","9"]]) == [[" 1 ","|"," 2 ", "|"," 3 ", "\n"],["===========", "\n"],[" 4 ", "|"," 5 ", "|"," 6 ", "\n"],["===========", "\n"],[" 7 ", "|"," 8 ", "|"," 9 ", "\n"]]
-  end
-
   test "prompt is given for player to re-take turn on bad input" do
     game_output = capture_io([input: "five\n5"],fn ->  TicTacToe.UI.do_turn({:x,[["O","O","X"],["X","5","O"],["O","X","O"]]  , :continue})end)
     assert String.contains?(game_output,"\n O | O | X \n===========\n X | 5 | O \n===========\n O | X | O \nBad input. Player X, please re-enter selection.")
