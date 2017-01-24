@@ -32,11 +32,11 @@ defmodule TicTacToe.UI.Test do
   end
 
   test "will return :bad_input if a string was entered" do
-    assert TicTacToe.UI.check_space_selection("five") == :bad_input
+    assert TicTacToe.Moves.UI.check_space_selection("five") == :bad_input
   end
 
   test "will return :bad_input if input is negative" do
-    assert TicTacToe.UI.check_space_selection("-1") == :bad_input
+    assert TicTacToe.Moves.UI.check_space_selection("-1") == :bad_input
   end
 
   test "will return :bad_input if input is larger than the board" do
